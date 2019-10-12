@@ -1,0 +1,91 @@
+# =============== #
+# Unity generated #
+# =============== #
+/New Unity Project/
+/VR_Escape_Museum/[Ll]ibrary/
+/VR_Escape_Museum/[Tt]emp/
+/VR_Escape_Museum/[Oo]bj/
+/VR_Escape_Museum/[Bb]uild/
+/VR_Escape_Museum/[Bb]uilds/
+/VR_Escape_Museum/[Ll]ogs/
+!/VR_Escape_Museum/[Aa]ssets/**/*.meta
+/VR_Escape_Museum/Assets/AssetStoreTools*
+/VR_Escape_Museum/UnityPackageManager
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+/VR_Escape_Museum/.consulo/
+/VR_Escape_Museum/.vs/
+/VR_Escape_Museum/ExportedObj/
+*.svd
+*.userprefs
+*.csproj
+*.pidb
+*.suo
+*.sln
+*.user
+*.unityproj
+*.booproj
+*.tmp
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# ====================== #
+# Gradle cache directory #
+# ====================== #
+/VR_Escape_Museum/.gradle/
+
+# ============================= #
+# Unity3D generated meta files  #
+# ============================= #
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# ======================================== #
+# Unity3D generated file on crash reports  #
+# ======================================== #
+sysinfo.txt
+*.stackdump
+
+# ======================================== #
+# Crashlytics generated file               #
+# ======================================== #
+crashlytics-build.properties
+
+# ==================== #
+# Builds               #
+# ==================== #
+*.apk
+*.unitypackage
+
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+[Tt]humbs.db
+[Dd]esktop.ini
+
+# =============== #
+#      Other      #
+# =============== #
+*.blend1
+*.orig
+*.orig.meta
+*.blend1.meta
+
+# =============== #
+#    Whiteboard   #
+# =============== #
+VR_Escape_Museum/.vs/VR_Escape_Museum/v15/Server/sqlite3/storage.ide
+VR_Escape_Museum/.vs/VR_Escape_Museum/v15/Server/sqlite3/storage.ide-wal
+VR_Escape_Museum/.vs/VR_Escape_Museum/v15/Server/sqlite3/storage.ide-shm
+VR_Escape_Museum/.vs/VR_Escape_Museum/DesignTimeBuild/.dtbcache
