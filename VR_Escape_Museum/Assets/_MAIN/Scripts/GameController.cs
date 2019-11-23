@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
-     [SerializeField] private UIController uiController;
+    [SerializeField] private UIController uiController;
      public UIController UIController { get { return uiController; } }
-     
+
+    [SerializeField] private InputController inputController;
+    public InputController InputController { get { return inputController; } }
+
+    [SerializeField] private MovementController movementController;
+    public MovementController MovementController { get { return movementController; } }
 
     private void Awake()
     {
