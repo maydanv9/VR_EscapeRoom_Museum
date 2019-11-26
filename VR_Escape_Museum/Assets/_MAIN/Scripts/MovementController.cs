@@ -15,12 +15,12 @@ public class MovementController : MonoBehaviour
     //
 
     [SerializeField] private Camera viewCamera;
-    [SerializeField] private Transform Player;
+    [SerializeField] private Transform player;
     [SerializeField] private GameObject gameCursorPrefab;
     [SerializeField] private GameObject teleportPrefab;
     [SerializeField] private GameObject handPrefab;
     [SerializeField] private GameObject coloredHandPrefab;
-    [SerializeField] private float RayLenght = 3f;
+    [SerializeField] private float rayLenght = 2f;
 
 
     public void MovementUpdate(InputController.InputValues inputValues)
@@ -32,14 +32,13 @@ public class MovementController : MonoBehaviour
 
     private void UpdateCursor()
     {
-        Ray ray = new Ray(viewCamera.transform.position, viewCamera.transform.rotation * Vector3.forward);
+        Ray ray = new Ray(viewCamera.transform.position, viewCamera.transform.rotation * Vector3.forward * 10);
         RaycastHit hit;
-
+        Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.red);
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            if (hit.collider.tag == "Ground" && Physics.Raycast(ray, out hit, RayLenght))
+            if (hit.collider.tag == "Ground" && Physics.Raycast(ray, out hit, rayLenght))
             {
-                // If the ray hits something, set the position to the hit point and rotate based on the normal vector of the hit
                 teleportPrefab.SetActive(true);
                 gameCursorPrefab.SetActive(false);
                 teleportPrefab.transform.position = hit.point;
@@ -53,7 +52,8 @@ public class MovementController : MonoBehaviour
         }
         else
         {
-            // If the ray doesn't hit anything, set the position to the maxCursorDistance and rotate to point away from the camera
+            gameCursorPrefab.SetActive(true);
+            teleportPrefab.SetActive(false);
             gameCursorPrefab.transform.position = ray.origin + ray.direction.normalized;
             gameCursorPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
         }
@@ -72,7 +72,7 @@ public class MovementController : MonoBehaviour
         if (teleportPrefab.activeInHierarchy)
         {
             Vector3 markerPosition = teleportPrefab.transform.position;
-            Player.position = new Vector3(markerPosition.x, Player.position.y, markerPosition.z);
+            player.position = new Vector3(markerPosition.x, player.position.y, markerPosition.z);
         }
     }
 
