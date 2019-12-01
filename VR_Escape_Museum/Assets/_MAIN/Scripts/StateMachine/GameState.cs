@@ -2,19 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameState : BaseState, IGameView {
+public class GameState : BaseState, IGameView, IMovement {
+
+    private InputController.InputValues inputs;
 
     public override void InitState(GameController gameController)
     {
         base.InitState(gameController);
+        #region LISTENERS
         this.gameController.UIController.GameView.listener = this;
+        this.gameController.InputController.movementlistener = this;
+        #endregion 
         this.gameController.UIController.GameView.ShowView();
-
     }
 
     public override void UpdateState(GameController gameController)
     {
-        Debug.Log("GameState :: UpdateState()");
+        gameController.InputController.InputUpdate();
+        gameController.MovementController.MovementUpdate(inputs);
     }
 
     public override void DeinitState(GameController gameController)
@@ -29,4 +34,11 @@ public class GameState : BaseState, IGameView {
         gameController.ChangeState(new MenuState());
         
     }
+
+    #region INTERFACES
+    public void UpdateAxis(InputController.InputValues inputValues)
+    {
+        inputs = inputValues;
+    }
+    #endregion
 }

@@ -13,7 +13,7 @@ public class MenuState : BaseState, IMenuView {
 
     public override void UpdateState(GameController gameController)
     {
-        Debug.Log("MenuState :: UpdateState()");
+
     }
 
     public override void DeinitState(GameController gameController)
