@@ -547,7 +547,7 @@ MonoBehaviour:
   teleportPrefab: {fileID: 206575406}
   handPrefab: {fileID: 62628536}
   coloredHandPrefab: {fileID: 333273145}
-  rayLenght: 2
+  RayLenght: 3
 --- !u!4 &648345551
 Transform:
   m_ObjectHideFlags: 0
@@ -2620,7 +2620,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2062980569
 Transform:
   m_ObjectHideFlags: 0
