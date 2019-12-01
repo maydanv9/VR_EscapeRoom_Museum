@@ -16,10 +16,7 @@ public class MovementController : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private Transform pointersParent;
     [SerializeField] private GameObject gameCursorPrefab;
-    [SerializeField] private GameObject teleportPrefab;
-    [SerializeField] private GameObject handPrefab;
-    [SerializeField] private GameObject coloredHandPrefab;
-    
+    [SerializeField] private GameObject teleportPrefab;   
     
     private float RayLenght = 3f;
     private GameObject cursorInstance;
@@ -44,7 +41,7 @@ public class MovementController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-        Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.red);
+            Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.red);
             if (hit.collider.tag == "Ground" && Physics.Raycast(ray, out hit, RayLenght))
             {
                 // If the ray hits something, set the position to the hit point and rotate based on the normal vector of the hit
