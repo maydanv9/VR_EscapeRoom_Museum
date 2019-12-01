@@ -33,7 +33,7 @@ namespace UnityEngine.EventSystems
         public OVRInput.Button joyPadClickButton = OVRInput.Button.One;
 
         [Tooltip("Keyboard button to act as gaze click")]
-        public KeyCode gazeClickKey = KeyCode.Space;
+        public KeyCode gazeClickKey = KeyCode.Mouse0;
 
         [Header("Physics")]
         [Tooltip("Perform an sphere cast to determine correct depth for gaze pointer")]
@@ -100,14 +100,14 @@ namespace UnityEngine.EventSystems
         }
 #endif
 
-        [Obsolete("Mode is no longer needed on input module as it handles both mouse and keyboard simultaneously.", false)]
+        [Obsolete("Mode is no longer needed on input module as it handles both mouse and keyboard simultaneously.", true)]
         public enum InputMode
         {
             Mouse,
             Buttons
         }
 
-        [Obsolete("Mode is no longer needed on input module as it handles both mouse and keyboard simultaneously.", false)]
+        [Obsolete("Mode is no longer needed on input module as it handles both mouse and keyboard simultaneously.", true)]
         public InputMode inputMode
         {
             get { return InputMode.Mouse; }

@@ -27,7 +27,7 @@ public class OVRGazePointer : OVRCursor {
     private Transform gazeIcon; //the transform that rotates according to our movement
 
     [Tooltip("Should the pointer be hidden when not over interactive objects.")]
-    public bool hideByDefault = true;
+    public bool hideByDefault = false;
 
     [Tooltip("Time after leaving interactive object before pointer fades.")]
     public float showTimeoutPeriod = 1;
