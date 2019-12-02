@@ -25,7 +25,10 @@ public class GameState : BaseState, IGameView, IMovement {
     public override void DeinitState(GameController gameController)
     {
         base.DeinitState(gameController);
-        this.gameController.UIController.GameView.listener = null;
+        #region LISTENERS
+        this.gameController.UIController.GameView.listener = this;
+        this.gameController.InputController.movementlistener = this;
+        #endregion 
         this.gameController.UIController.GameView.HideView();
     }
 

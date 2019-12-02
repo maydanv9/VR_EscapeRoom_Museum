@@ -27,7 +27,7 @@ public class OVRGazePointer : OVRCursor {
     private Transform gazeIcon; //the transform that rotates according to our movement
 
     [Tooltip("Should the pointer be hidden when not over interactive objects.")]
-    public bool hideByDefault = true;
+    public bool hideByDefault = false;
 
     [Tooltip("Time after leaving interactive object before pointer fades.")]
     public float showTimeoutPeriod = 1;
@@ -191,9 +191,9 @@ public class OVRGazePointer : OVRCursor {
         if (!matchNormalOnPhysicsColliders) normal = rayTransform.forward;
         
         // Set the rotation to match the normal of the surface it's on.
-        Quaternion newRot = transform.rotation;
-        newRot.SetLookRotation(normal, rayTransform.up);
-        transform.rotation = newRot;
+        //Quaternion newRot = transform.rotation;
+        //newRot.SetLookRotation(normal, rayTransform.up);
+        //transform.rotation = newRot;
 
         // record depth so that distance doesn't pop when pointer leaves an object
         depth = (rayTransform.position - pos).magnitude;
@@ -214,17 +214,17 @@ public class OVRGazePointer : OVRCursor {
     void LateUpdate()
     {
         // This happens after all Updates so we know that if positionSetsThisFrame is zero then nothing set the position this frame
-        if (positionSetsThisFrame == 0)
-        {
-            // No geometry intersections, so gazing into space. Make the cursor face directly at the camera
-            Quaternion newRot = transform.rotation;
-            newRot.SetLookRotation(rayTransform.forward, rayTransform.up);
-            transform.rotation = newRot;
-        }
+  //      if (positionSetsThisFrame == 0)
+  //      {
+  //          // No geometry intersections, so gazing into space. Make the cursor face directly at the camera
+  //          Quaternion newRot = transform.rotation;
+  //          newRot.SetLookRotation(rayTransform.forward, rayTransform.up);
+  //          transform.rotation = newRot;
+  //      }
 
-        Quaternion iconRotation = gazeIcon.rotation;
-		iconRotation.SetLookRotation(transform.rotation * new Vector3(0, 0, 1));
-		gazeIcon.rotation = iconRotation;
+  //      Quaternion iconRotation = gazeIcon.rotation;
+		//iconRotation.SetLookRotation(transform.rotation * new Vector3(0, 0, 1));
+		//gazeIcon.rotation = iconRotation;
 
 		positionSetsThisFrame = 0;
     }

@@ -13,6 +13,12 @@ public class GameController : MonoBehaviour {
     [SerializeField] private MovementController movementController;
     public MovementController MovementController { get { return movementController; } }
 
+    [SerializeField] private SceneReferences sceneReferences;
+    public SceneReferences SceneReferences { get { return sceneReferences; } }
+
+    [SerializeField] private GroundController groundController;
+    public GroundController GroundController { get { return groundController; } }
+
     private void Awake()
     {
         Initialization();

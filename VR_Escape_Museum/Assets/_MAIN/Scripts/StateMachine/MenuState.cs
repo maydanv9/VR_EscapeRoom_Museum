@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MenuState : BaseState, IMenuView {
+public class MenuState : BaseState, IMenuView, IMovement
+{
+
+    private InputController.InputValues inputs;
 
     public override void InitState(GameController gameController)
     {
@@ -13,7 +16,7 @@ public class MenuState : BaseState, IMenuView {
 
     public override void UpdateState(GameController gameController)
     {
-
+        this.gameController.MovementController.MovementUpdate(inputs);
     }
 
     public override void DeinitState(GameController gameController)
@@ -27,4 +30,11 @@ public class MenuState : BaseState, IMenuView {
     {
         gameController.ChangeState(new GameState());
     }
+
+    #region INTERFACES
+    public void UpdateAxis(InputController.InputValues inputValues)
+    {
+        inputs = inputValues;
+    }
+    #endregion
 }

@@ -10,27 +10,20 @@ using UnityEditor;
 
 public class MovementController : MonoBehaviour
 {
-    enum objects { ground, interactable, empty };
-    private objects currentObject;
+    [SerializeField] private Camera viewCamera;
+    [SerializeField] private Transform player;
+    [SerializeField] private GameObject gameCursorPrefab;
+    [SerializeField] private GameObject teleportPrefab;
+    [SerializeField] private GameObject handPrefab;
+    [SerializeField] private GameObject coloredHandPrefab;
+    [SerializeField] private float rayLenght = 3f;
+
     private InputController.InputValues inputValues;
     private bool entered = false;
     private bool canExit = false;
-
-    [SerializeField] private Camera viewCamera;
-    [SerializeField] private Transform player;
-    [SerializeField] private Transform pointersParent;
-    [SerializeField] private GameObject gameCursorPrefab;
-    [SerializeField] private GameObject teleportPrefab;   
-    [SerializeField] private GameObject focusedObject;
-    
-    private float rayLenght = 3f;
-    private GameObject cursorInstance;
-
-    void Start()
-    {
-        cursorInstance = Instantiate(gameCursorPrefab, pointersParent);
-        Destroy(gameCursorPrefab);
-    }
+    private GameObject focusedObject;
+    enum objects { ground, interactable, empty };
+    private objects currentObject;
 
     public void MovementUpdate(InputController.InputValues inputValues)
     {
@@ -50,7 +43,7 @@ public class MovementController : MonoBehaviour
             {
                 Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.red);
                 teleportPrefab.SetActive(true);
-                cursorInstance.SetActive(false);
+                gameCursorPrefab.SetActive(false);
                 teleportPrefab.transform.position = hit.point;
                 teleportPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
                 currentObject = objects.ground;
@@ -73,7 +66,8 @@ public class MovementController : MonoBehaviour
                     {
                         hitReciver.OnRaycastStay();
                     }
-                } else if (canExit)
+                }
+                else if (canExit)
                 {
                     focusedObject.GetComponent<BaseRaycastableItem>().OnRaycastExit();
                     canExit = false;
@@ -85,22 +79,49 @@ public class MovementController : MonoBehaviour
             {
                 Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.green);
                 teleportPrefab.SetActive(false);
-                cursorInstance.SetActive(true);
-                cursorInstance.transform.position = ray.origin + ray.direction.normalized;
-                cursorInstance.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
+                gameCursorPrefab.SetActive(true);
+                gameCursorPrefab.transform.position = ray.origin + ray.direction.normalized;
+                gameCursorPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
                 currentObject = objects.empty;
             }
         }
         else
         {
             teleportPrefab.SetActive(false);
-            cursorInstance.SetActive(true);
+            gameCursorPrefab.SetActive(true);
             Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.blue);
-            cursorInstance.transform.position = ray.origin + ray.direction.normalized;
-            cursorInstance.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
+            gameCursorPrefab.transform.position = ray.origin + ray.direction.normalized;
+            gameCursorPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
         }
+        //if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        //{
+        //    //Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.red);
+        //    if (hit.collider.tag == "Ground" && Physics.Raycast(ray, out hit, rayLenght))
+        //    {
+        //        // If the ray hits something, set the position to the hit point and rotate based on the normal vector of the hit
+        //        teleportPrefab.SetActive(true);
+        //        gameCursorPrefab.SetActive(false);
+        //        teleportPrefab.transform.position = hit.point;
+        //        teleportPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+        //    }
+        //    else
+        //    {
+        //        gameCursorPrefab.transform.position = ray.origin + ray.direction.normalized;
+        //        gameCursorPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
+        //        teleportPrefab.SetActive(false);
+        //        gameCursorPrefab.SetActive(true);
+        //    }
+        //}
+        //else
+        //{
+        //    //Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.green);
+
+        //    // If the ray doesn't hit anything, set the position to the maxCursorDistance and rotate to point away from the camera
+        //    gameCursorPrefab.transform.position = ray.origin + ray.direction.normalized;
+        //    gameCursorPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
+        //}
     }
-    
+
     private void CheckInput()
     {
         if (inputValues.isLeftMousePressed)
@@ -127,6 +148,7 @@ public class MovementController : MonoBehaviour
             player.position = new Vector3(markerPosition.x, player.position.y, markerPosition.z);
         }
     }
+
 
 
 }
