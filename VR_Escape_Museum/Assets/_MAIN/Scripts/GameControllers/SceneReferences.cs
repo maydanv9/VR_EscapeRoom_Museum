@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SceneReferences : MonoBehaviour
+public class SceneReferences : BaseView
 {
+    [SerializeField] private GameObject gameTerrain;
+    public GameObject GameTerrain { get { return gameTerrain; } }
 
+    [SerializeField] private GameObject menuTerrain;
+    public GameObject MenuTerrain { get { return menuTerrain; } }
 }

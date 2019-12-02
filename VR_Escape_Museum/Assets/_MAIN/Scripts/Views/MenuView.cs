@@ -4,14 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MenuView : BaseView {
-    [SerializeField] private Text mainText;
+
     public IMenuView listener;
-
-
+    
     public override void ShowView()
     {
         base.ShowView();
-        mainText.text = "MenuView";
     }
 
     public override void HideView()

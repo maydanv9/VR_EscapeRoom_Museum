@@ -12,6 +12,7 @@ public class MenuState : BaseState, IMenuView, IMovement
         base.InitState(gameController);
         this.gameController.UIController.MenuView.listener = this;
         this.gameController.UIController.MenuView.ShowView();
+        this.gameController.SceneReferences.MenuTerrain.SetActive(true);
     }
 
     public override void UpdateState(GameController gameController)
@@ -24,6 +25,7 @@ public class MenuState : BaseState, IMenuView, IMovement
         base.DeinitState(gameController);
         this.gameController.UIController.MenuView.listener = null;
         this.gameController.UIController.MenuView.HideView();
+        this.gameController.SceneReferences.MenuTerrain.SetActive(false);
     }
 
     public void SetGameState()

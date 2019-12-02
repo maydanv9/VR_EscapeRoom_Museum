@@ -10,21 +10,24 @@ using UnityEditor;
 
 public class MovementController : MonoBehaviour
 {
+    private GameController gameController;
     [SerializeField] private Camera viewCamera;
     [SerializeField] private Transform player;
     [SerializeField] private GameObject gameCursorPrefab;
     [SerializeField] private GameObject teleportPrefab;
-    [SerializeField] private GameObject handPrefab;
-    [SerializeField] private GameObject coloredHandPrefab;
     [SerializeField] private float rayLenght = 3f;
 
     private InputController.InputValues inputValues;
     private bool entered = false;
-    private bool canExit = false;
-    private GameObject focusedObject;
-    private BaseRiddle currentBaseObject;
+    [SerializeField] private BaseRaycastableItem focusedObject;
+    [SerializeField] private BaseRaycastableItem currentBaseObject;
     enum objects { ground, interactable, empty };
     private objects currentObject;
+
+    public void Init(GameController _gameController)
+    {
+        gameController = _gameController;
+    }
 
     public void MovementUpdate(InputController.InputValues inputValues)
     {
@@ -40,59 +43,56 @@ public class MovementController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, rayLenght))
         {
+           
             if (hit.collider.tag == "Ground")
             {
                 Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.red);
-                teleportPrefab.SetActive(true);
-                gameCursorPrefab.SetActive(false);
+                SetCursors(false, true);
                 teleportPrefab.transform.position = hit.point;
                 teleportPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
                 currentObject = objects.ground;
             }
             else if (hit.collider.tag == "Interactable")
             {
+                if (currentBaseObject == focusedObject && focusedObject != null)
+                {
+                    focusedObject.OnRaycastStay();
+                }
+                else if (currentBaseObject != null && !entered)
+                {
+                    focusedObject = currentBaseObject;
+                    focusedObject.OnRaycastEnter();
+                    entered = true;
+                    SetCursors(false, false);
+                }
                 currentObject = objects.interactable;
-                currentBaseObject = hit.collider.gameObject.GetComponent<BaseRiddle>();
-
-                if (hit.collider.gameObject.GetComponent<BaseRiddle>() != null)
-                {
-                    if (!entered)
-                    {
-                        currentBaseObject.OnRaycastEnter();
-                        entered = true;
-                        canExit = true;
-                        focusedObject = hit.collider.gameObject;
-                    }
-                    else if (entered)
-                    {
-                        currentBaseObject.OnRaycastStay();
-                    }
-                }
-                else if (canExit)
-                {
-                    focusedObject.GetComponent<BaseRaycastableItem>().OnRaycastExit();
-                    canExit = false;
-                    entered = false;
-                }
-
-            }
-            else
-            {
-                Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.green);
-                teleportPrefab.SetActive(false);
-                gameCursorPrefab.SetActive(true);
-                gameCursorPrefab.transform.position = ray.origin + ray.direction.normalized;
-                gameCursorPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
-                currentObject = objects.empty;
             }
         }
         else
         {
-            teleportPrefab.SetActive(false);
-            gameCursorPrefab.SetActive(true);
+            SetCursors(true, false);
             Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.blue);
             gameCursorPrefab.transform.position = ray.origin + ray.direction.normalized;
             gameCursorPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
+            currentObject = objects.empty;
+        }
+
+        if (Physics.Raycast(ray, out hit, rayLenght*2))
+        {
+            try
+            {
+                currentBaseObject = hit.collider.gameObject.GetComponent<BaseRaycastableItem>();
+            }
+            catch (NullReferenceException)
+            {
+            }
+
+            if (currentBaseObject == null && entered)
+            {
+                focusedObject.OnRaycastExit();
+                entered = false;
+                focusedObject = null;
+            }
         }
     }
 
@@ -103,7 +103,7 @@ public class MovementController : MonoBehaviour
             switch (currentObject)
             {
                 case objects.ground:
-                    Teleport();
+                    gameController.GroundController.TeleportPlayer(teleportPrefab.transform.position);
                     break;
                 case objects.interactable:
                     currentBaseObject.OnInterract();
@@ -114,15 +114,9 @@ public class MovementController : MonoBehaviour
         }
     }
 
-    public void Teleport()
+    public void SetCursors(bool valueGameCursor, bool valueTeleportPrefab)
     {
-        if (teleportPrefab.activeInHierarchy)
-        {
-            Vector3 markerPosition = teleportPrefab.transform.position;
-            player.position = new Vector3(markerPosition.x, player.position.y, markerPosition.z);
-        }
+        gameCursorPrefab.SetActive(valueGameCursor);
+        teleportPrefab.SetActive(valueTeleportPrefab);
     }
-
-
-
 }
