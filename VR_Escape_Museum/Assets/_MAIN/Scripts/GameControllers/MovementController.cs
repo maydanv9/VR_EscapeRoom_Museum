@@ -22,6 +22,7 @@ public class MovementController : MonoBehaviour
     private bool entered = false;
     private bool canExit = false;
     private GameObject focusedObject;
+    private BaseRiddle currentBaseObject;
     enum objects { ground, interactable, empty };
     private objects currentObject;
 
@@ -51,20 +52,20 @@ public class MovementController : MonoBehaviour
             else if (hit.collider.tag == "Interactable")
             {
                 currentObject = objects.interactable;
-                var hitReciver = hit.collider.gameObject.GetComponent<BaseRiddle>();
+                currentBaseObject = hit.collider.gameObject.GetComponent<BaseRiddle>();
 
                 if (hit.collider.gameObject.GetComponent<BaseRiddle>() != null)
                 {
                     if (!entered)
                     {
-                        hitReciver.OnRaycastEnter();
+                        currentBaseObject.OnRaycastEnter();
                         entered = true;
                         canExit = true;
                         focusedObject = hit.collider.gameObject;
                     }
                     else if (entered)
                     {
-                        hitReciver.OnRaycastStay();
+                        currentBaseObject.OnRaycastStay();
                     }
                 }
                 else if (canExit)
@@ -93,33 +94,6 @@ public class MovementController : MonoBehaviour
             gameCursorPrefab.transform.position = ray.origin + ray.direction.normalized;
             gameCursorPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
         }
-        //if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-        //{
-        //    //Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.red);
-        //    if (hit.collider.tag == "Ground" && Physics.Raycast(ray, out hit, rayLenght))
-        //    {
-        //        // If the ray hits something, set the position to the hit point and rotate based on the normal vector of the hit
-        //        teleportPrefab.SetActive(true);
-        //        gameCursorPrefab.SetActive(false);
-        //        teleportPrefab.transform.position = hit.point;
-        //        teleportPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
-        //    }
-        //    else
-        //    {
-        //        gameCursorPrefab.transform.position = ray.origin + ray.direction.normalized;
-        //        gameCursorPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
-        //        teleportPrefab.SetActive(false);
-        //        gameCursorPrefab.SetActive(true);
-        //    }
-        //}
-        //else
-        //{
-        //    //Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.green);
-
-        //    // If the ray doesn't hit anything, set the position to the maxCursorDistance and rotate to point away from the camera
-        //    gameCursorPrefab.transform.position = ray.origin + ray.direction.normalized;
-        //    gameCursorPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
-        //}
     }
 
     private void CheckInput()
@@ -132,7 +106,7 @@ public class MovementController : MonoBehaviour
                     Teleport();
                     break;
                 case objects.interactable:
-                    Debug.Log("interactring with");
+                    currentBaseObject.OnInterract();
                     break;
                 case objects.empty:
                     break;

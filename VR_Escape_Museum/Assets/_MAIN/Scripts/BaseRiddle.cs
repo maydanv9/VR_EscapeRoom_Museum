@@ -23,4 +23,9 @@ public class BaseRiddle : BaseRaycastableItem
 
     }
 
+    public override void OnInterract()
+    {
+        Debug.Log("Interaction");
+    }
+
 }

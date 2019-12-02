@@ -18,4 +18,9 @@ public class BaseRaycastableItem : MonoBehaviour
     {
 
     }
+
+    public virtual void OnInterract()
+    {
+
+    }
 }
