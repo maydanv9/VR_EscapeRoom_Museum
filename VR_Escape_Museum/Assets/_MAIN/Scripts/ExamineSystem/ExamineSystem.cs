@@ -19,6 +19,8 @@ public class ExamineSystem : MonoBehaviour
     [SerializeField] Button rightButton;
     [SerializeField] Button exitButton;
 
+    private InputController.InputValues inputValues;
+
     //Holds Original Postion And Rotation So The Object Can Be Replaced Correctly
     Vector3 objectOriginalPosition;
     Vector3 objectOriginalRotation;
@@ -27,7 +29,8 @@ public class ExamineSystem : MonoBehaviour
     Vector3 playerOriginalRotation;
 
     //If True Allow Rotation Of Object
-    bool examineMode;
+    bool examineMode = false;
+    private float rotation = 10.0f;
 
     void Start() {
         
@@ -43,15 +46,14 @@ public class ExamineSystem : MonoBehaviour
     }
 
     private void Update() {
-
         ClickObject();
     }
 
 
 
-    void ClickObject() {
-        if(Input.GetMouseButtonDown(0) && examineMode == false) {
-            
+    public void ClickObject() {
+        
+            if(examineMode ==false && Input.GetMouseButtonDown(0) ) { 
             RaycastHit hit;
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
 
@@ -59,7 +61,7 @@ public class ExamineSystem : MonoBehaviour
                 //ClickedObject Will Be The Object Hit By The Raycast
                 clickedObject = hit.transform.gameObject;
 
-                
+
                 objectOriginalPosition = clickedObject.transform.position;
                 objectOriginalRotation = clickedObject.transform.rotation.eulerAngles;
                 playerOriginalPosition = player.transform.position;
@@ -68,7 +70,7 @@ public class ExamineSystem : MonoBehaviour
                 //Move player to location used to inspect items
                 player.transform.position = new Vector3(-20, 1, -1);
                 mainCam.transform.localEulerAngles = new Vector3(0, 0, 0);
-                
+
 
                 clickedObject.transform.position = player.transform.position - (transform.forward * 1.4f);
 
@@ -81,25 +83,25 @@ public class ExamineSystem : MonoBehaviour
     }
 
     //temp
-    private void RotateUp() {
+    private void RotateUp( ) {
 
-        clickedObject.transform.Rotate(Vector3.left * 10);
-
-    }
-
-    private void RotateDown() {
-
-        clickedObject.transform.Rotate(Vector3.right * 10);
+        clickedObject.transform.Rotate(-rotation, 0, 0, Space.Self);
 
     }
-    private void RotateLeft() {
 
-        clickedObject.transform.Rotate(Vector3.up * 10);
+    private void RotateDown( ) {
+
+        clickedObject.transform.Rotate(rotation, 0,0,Space.Self);
 
     }
-    private void RotateRight() {
+    private void RotateLeft( ) {
 
-        clickedObject.transform.Rotate(Vector3.down * 10);
+        clickedObject.transform.Rotate(0, rotation, 0, Space.Self);
+
+    }
+    private void RotateRight( ) {
+
+        clickedObject.transform.Rotate(0, -rotation, 0, Space.Self);
 
     }
 
