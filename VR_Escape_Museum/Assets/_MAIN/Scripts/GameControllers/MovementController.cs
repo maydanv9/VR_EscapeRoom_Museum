@@ -61,7 +61,7 @@ public class MovementController : MonoBehaviour
                 else if (currentBaseObject != null && !entered)
                 {
                     focusedObject = currentBaseObject;
-                    focusedObject.OnRaycastEnter();
+                    focusedObject.OnRaycastEnter(gameController);
                     entered = true;
                     SetCursors(false, false);
                 }

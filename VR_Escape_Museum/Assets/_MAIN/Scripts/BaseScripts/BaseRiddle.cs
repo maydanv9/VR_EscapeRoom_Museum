@@ -3,27 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseRiddle : BaseRaycastableItem
-{    public override void OnRaycastEnter()
+{
+    protected GameController gameController;
+
+    public override void OnRaycastEnter(GameController gameController)
     {
-        base.OnRaycastEnter();
-        Debug.Log("BaseRiddle :: OnRaycastEnter");
+        base.OnRaycastEnter(gameController);
         outline.enabled = true;
+        this.gameController = gameController;
     }
     public override void OnRaycastStay()
     {
         base.OnRaycastStay();
-        Debug.Log("BaseRiddle :: OnRaycastStay");
     }
 
     public override void OnRaycastExit()
     {
         base.OnRaycastStay();
-        Debug.Log("BaseRiddle :: OnRaycastExit");
         outline.enabled = false;
+        this.gameController = null;
     }
 
     public override void OnInterract()
     {
-        Debug.Log("BaseRiddle :: OnInterract");
+        base.OnInterract();
     }
 }

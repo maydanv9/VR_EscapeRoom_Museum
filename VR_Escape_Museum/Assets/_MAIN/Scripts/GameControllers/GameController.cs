@@ -19,6 +19,9 @@ public class GameController : MonoBehaviour {
     [SerializeField] private GroundController groundController;
     public GroundController GroundController { get { return groundController; } }
 
+    [SerializeField] private ExamineSystem examineSystem;
+    public ExamineSystem ExamineSystem { get { return examineSystem; } }
+
     private void Awake()
     {
         Initialization();

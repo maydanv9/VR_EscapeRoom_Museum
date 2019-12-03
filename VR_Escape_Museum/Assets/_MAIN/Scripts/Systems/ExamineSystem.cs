@@ -32,54 +32,44 @@ public class ExamineSystem : MonoBehaviour
     bool examineMode = false;
     private float rotation = 10.0f;
 
-    void Start() {
-        
-        mainCam = Camera.main;
-        examineMode = false;
-
+    void Start()
+    {
         upButton.onClick.AddListener(RotateUp);
         downButton.onClick.AddListener(RotateDown);
         leftButton.onClick.AddListener(RotateLeft);
         rightButton.onClick.AddListener(RotateRight);
         exitButton.onClick.AddListener(ExitExamineMode);
-
     }
 
-    private void Update() {
-        ClickObject();
-    }
+    public void ClickObject()
+    {
+        RaycastHit hit;
+        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            //ClickedObject Will Be The Object Hit By The Raycast
+            clickedObject = hit.transform.gameObject;
 
 
+            objectOriginalPosition = clickedObject.transform.position;
+            objectOriginalRotation = clickedObject.transform.rotation.eulerAngles;
+            playerOriginalPosition = player.transform.position;
+            playerOriginalRotation = player.transform.rotation.eulerAngles;
 
-    public void ClickObject() {
-        
-            if(examineMode ==false && Input.GetMouseButtonDown(0) ) { 
-            RaycastHit hit;
-            Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
-
-            if(Physics.Raycast(ray, out hit)) {
-                //ClickedObject Will Be The Object Hit By The Raycast
-                clickedObject = hit.transform.gameObject;
+            //Move player to location used to inspect items
+            player.transform.position = new Vector3(-20, 1, -1);
+            mainCam.transform.localEulerAngles = new Vector3(0, 0, 0);
 
 
-                objectOriginalPosition = clickedObject.transform.position;
-                objectOriginalRotation = clickedObject.transform.rotation.eulerAngles;
-                playerOriginalPosition = player.transform.position;
-                playerOriginalRotation = player.transform.rotation.eulerAngles;
-
-                //Move player to location used to inspect items
-                player.transform.position = new Vector3(-20, 1, -1);
-                mainCam.transform.localEulerAngles = new Vector3(0, 0, 0);
+            clickedObject.transform.position = player.transform.position - (transform.forward * 1.4f);
 
 
-                clickedObject.transform.position = player.transform.position - (transform.forward * 1.4f);
+            examineCanvas.SetActive(true);
 
-
-                examineCanvas.SetActive(true);
-
-                examineMode = true;
-            }
+            examineMode = true;
         }
+
     }
 
     //temp

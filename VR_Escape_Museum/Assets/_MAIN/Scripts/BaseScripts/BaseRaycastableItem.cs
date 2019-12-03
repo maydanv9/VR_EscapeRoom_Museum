@@ -10,21 +10,16 @@ public class BaseRaycastableItem : MonoBehaviour
 
     public virtual void OnRaycastStay()
     {
-        Debug.Log("BaseRaycastableItem :: OnRaycastStay");
     }
 
-    public virtual void OnRaycastEnter()
+    public virtual void OnRaycastEnter(GameController gameController)
     {
-        Debug.Log("BaseRaycastableItem :: OnRaycastEnter");
-
     }
     public virtual void OnRaycastExit()
     {
-        Debug.Log("BaseRaycastableItem :: OnRaycastExit");
     }
 
     public virtual void OnInterract()
     {
-        Debug.Log("BaseRaycastableItem :: OnInterract");
     }
 }

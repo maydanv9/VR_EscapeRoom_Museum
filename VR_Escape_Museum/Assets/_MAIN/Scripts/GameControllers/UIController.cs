@@ -10,4 +10,7 @@ public class UIController : MonoBehaviour
 
     [SerializeField] private GameView gameView;
     public GameView GameView { get { return gameView; } }
+
+    [SerializeField] private ExamineView examineView;
+    public ExamineView ExamineView { get { return examineView; } }
 }
