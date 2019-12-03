@@ -13,6 +13,9 @@ public class MenuState : BaseState, IMenuView, IMovement
         this.gameController.UIController.MenuView.listener = this;
         this.gameController.UIController.MenuView.ShowView();
         this.gameController.SceneReferences.MenuTerrain.SetActive(true);
+#if UNITY_EDITOR
+        SetGameState();
+#endif
     }
 
     public override void UpdateState(GameController gameController)

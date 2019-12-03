@@ -32,6 +32,7 @@ public class ExamineSystem : MonoBehaviour
 
     public void ClickObject(GameObject inspectedObject)
     {
+        //TODO instantiate GO and work on instanitated object
         clickedObject = inspectedObject;
         objectOriginalPosition = clickedObject.transform.position;
         objectOriginalRotation = clickedObject.transform.rotation.eulerAngles;
