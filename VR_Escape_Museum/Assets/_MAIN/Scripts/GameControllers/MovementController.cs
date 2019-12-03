@@ -41,24 +41,23 @@ public class MovementController : MonoBehaviour
         Ray ray = new Ray(viewCamera.transform.position, viewCamera.transform.rotation * Vector3.forward);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, rayLenght))
-        {
-           
-            if (hit.collider.tag == "Ground")
+        if(Physics.Raycast(ray, out hit, rayLenght))
             {
+            if(hit.collider.tag == "Ground") 
+                {
                 Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.red);
                 SetCursors(false, true);
                 teleportPrefab.transform.position = hit.point;
                 teleportPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
                 currentObject = objects.ground;
-            }
-            else if (hit.collider.tag == "Interactable")
-            {
-                if (currentBaseObject == focusedObject && focusedObject != null)
+            } 
+            else if(hit.collider.tag == "Interactable") 
+                {
+                if(currentBaseObject == focusedObject && focusedObject != null)
                 {
                     focusedObject.OnRaycastStay();
-                }
-                else if (currentBaseObject != null && !entered)
+                } 
+                else if(currentBaseObject != null && !entered)
                 {
                     focusedObject = currentBaseObject;
                     focusedObject.OnRaycastEnter(gameController);
@@ -66,6 +65,14 @@ public class MovementController : MonoBehaviour
                     SetCursors(false, false);
                 }
                 currentObject = objects.interactable;
+            } 
+            else
+            {
+                SetCursors(true, false);
+                Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.blue);
+                gameCursorPrefab.transform.position = ray.origin + ray.direction.normalized;
+                gameCursorPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
+                currentObject = objects.empty;
             }
         }
         else
