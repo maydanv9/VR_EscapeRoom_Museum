@@ -8,104 +8,65 @@ using UnityEngine.UI;
 
 public class ExamineSystem : MonoBehaviour
 {
-    [SerializeField] GameObject player;
-    [SerializeField] Camera mainCam; 
-    [SerializeField] GameObject examineCanvas;
-    GameObject clickedObject;
+    private GameController gameController;
+    [SerializeField] private GameObject player;
+    [SerializeField] private Camera mainCam;
+    [SerializeField] private GameObject examineCanvas;
 
-    [SerializeField] Button upButton;
-    [SerializeField] Button downButton;
-    [SerializeField] Button leftButton;
-    [SerializeField] Button rightButton;
-    [SerializeField] Button exitButton;
+    private GameObject clickedObject;
 
     private InputController.InputValues inputValues;
 
-    //Holds Original Postion And Rotation So The Object Can Be Replaced Correctly
-    Vector3 objectOriginalPosition;
-    Vector3 objectOriginalRotation;
+    private Vector3 objectOriginalPosition;
+    private Vector3 objectOriginalRotation;
 
-    Vector3 playerOriginalPosition;
-    Vector3 playerOriginalRotation;
+    private Vector3 playerOriginalPosition;
+    private Vector3 playerOriginalRotation;
 
-    //If True Allow Rotation Of Object
-    bool examineMode = false;
-    private float rotation = 10.0f;
+    private static float rotation = 10.0f;
 
-    void Start()
+    public void Init(GameController _gameController)
     {
-        upButton.onClick.AddListener(RotateUp);
-        downButton.onClick.AddListener(RotateDown);
-        leftButton.onClick.AddListener(RotateLeft);
-        rightButton.onClick.AddListener(RotateRight);
-        exitButton.onClick.AddListener(ExitExamineMode);
+        gameController = _gameController;
     }
 
-    public void ClickObject()
+    public void ClickObject(GameObject inspectedObject)
     {
-        RaycastHit hit;
-        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out hit))
-        {
-            //ClickedObject Will Be The Object Hit By The Raycast
-            clickedObject = hit.transform.gameObject;
-
-
-            objectOriginalPosition = clickedObject.transform.position;
-            objectOriginalRotation = clickedObject.transform.rotation.eulerAngles;
-            playerOriginalPosition = player.transform.position;
-            playerOriginalRotation = player.transform.rotation.eulerAngles;
-
-            //Move player to location used to inspect items
-            player.transform.position = new Vector3(-20, 1, -1);
-            mainCam.transform.localEulerAngles = new Vector3(0, 0, 0);
-
-
-            clickedObject.transform.position = player.transform.position - (transform.forward * 1.4f);
-
-
-            examineCanvas.SetActive(true);
-
-            examineMode = true;
-        }
-
+        clickedObject = inspectedObject;
+        objectOriginalPosition = clickedObject.transform.position;
+        objectOriginalRotation = clickedObject.transform.rotation.eulerAngles;
+        playerOriginalPosition = player.transform.position;
+        playerOriginalRotation = player.transform.rotation.eulerAngles;
+        clickedObject.transform.position = player.transform.position - (transform.forward * 1.4f);
+        gameController.SceneReferences.ExamineRoom.SetActive(true);
+        gameController.UIController.ExamineView.enabled = true;
     }
 
-    //temp
-    private void RotateUp( ) {
+    public void ExitExamineMode()
+    {
+        clickedObject.transform.position = objectOriginalPosition;
+        clickedObject.transform.eulerAngles = objectOriginalRotation;
 
+        gameController.GroundController.TeleportPlayerToGame();
+    }
+    #region BUTTONS
+    public void RotateUp()
+    {
         clickedObject.transform.Rotate(-rotation, 0, 0, Space.Self);
-
     }
 
-    private void RotateDown( ) {
-
-        clickedObject.transform.Rotate(rotation, 0,0,Space.Self);
-
+    public void RotateDown()
+    {
+        clickedObject.transform.Rotate(rotation, 0, 0, Space.Self);
     }
-    private void RotateLeft( ) {
-
+    public void RotateLeft()
+    {
         clickedObject.transform.Rotate(0, rotation, 0, Space.Self);
+    }    
 
-    }
-    private void RotateRight( ) {
-
+    public void RotateRight()
+    {
         clickedObject.transform.Rotate(0, -rotation, 0, Space.Self);
-
     }
-
-
-    void ExitExamineMode() {
-        if( examineMode) {
-            
-            clickedObject.transform.position = objectOriginalPosition;
-            clickedObject.transform.eulerAngles = objectOriginalRotation;
-            player.transform.position = playerOriginalPosition;
-            player.transform.eulerAngles = playerOriginalRotation;
-
-            examineCanvas.SetActive(false);
-            examineMode = false;
-        }
-    }
+    #endregion
 }

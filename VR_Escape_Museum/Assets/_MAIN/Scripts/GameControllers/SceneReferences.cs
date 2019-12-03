@@ -9,4 +9,7 @@ public class SceneReferences : BaseView
 
     [SerializeField] private GameObject menuTerrain;
     public GameObject MenuTerrain { get { return menuTerrain; } }
+
+    [SerializeField] private GameObject examineRoom;
+    public GameObject ExamineRoom { get { return examineRoom; } }
 }

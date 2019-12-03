@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour {
-
+public class GameController : MonoBehaviour
+{
     [SerializeField] private UIController uiController;
-     public UIController UIController { get { return uiController; } }
+    public UIController UIController { get { return uiController; } }
 
     [SerializeField] private InputController inputController;
     public InputController InputController { get { return inputController; } }
@@ -57,7 +57,7 @@ public class GameController : MonoBehaviour {
 
     private void Update()
     {
-        if(currrentState!=null)
+        if (currrentState != null)
         {
             currrentState.UpdateState(this);
         }

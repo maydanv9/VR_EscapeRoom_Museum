@@ -16,12 +16,14 @@ public class InspectRiddle : BaseRiddle
 
     public override void OnRaycastExit()
     {
-        base.OnRaycastStay();
+        base.OnRaycastExit();
     }
 
     public override void OnInterract()
     {
         base.OnInterract();
-        gameController.ExamineSystem.ClickObject();
+        gameController.GroundController.TeleportPlayerToInspectingRoom();
+        gameController.ExamineSystem.ClickObject(this.gameObject);
+        outline.enabled = false;
     }
 }

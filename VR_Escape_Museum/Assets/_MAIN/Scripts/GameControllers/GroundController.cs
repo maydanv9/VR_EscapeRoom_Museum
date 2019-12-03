@@ -9,8 +9,7 @@ public class GroundController : MonoBehaviour
     [SerializeField] private Transform camera;
     [SerializeField] private Transform inspectingRoomPosition;
 
-    private Vector3 currentPosition;
-    private Vector3 currentRotation;
+    private Vector3 savedPosition;
 
     public void Init(GameController _gameController)
     {
@@ -24,13 +23,18 @@ public class GroundController : MonoBehaviour
 
     public void TeleportPlayerToInspectingRoom()
     {
-        currentPosition = player.position;
-        currentRotation = camera.localEulerAngles;
-        player = inspectingRoomPosition;
+        gameController.SceneReferences.ExamineRoom.SetActive(true);
+        gameController.UIController.ExamineView.ShowView();
+
+        savedPosition = player.position;
+        player.position = inspectingRoomPosition.position;
     }
 
     public void TeleportPlayerToGame()
     {
+        gameController.SceneReferences.ExamineRoom.SetActive(false);
+        gameController.UIController.ExamineView.enabled = false;
 
+        player.position = savedPosition;
     }
 }

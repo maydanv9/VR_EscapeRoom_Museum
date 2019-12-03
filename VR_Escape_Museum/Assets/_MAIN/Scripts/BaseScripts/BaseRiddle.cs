@@ -19,7 +19,7 @@ public class BaseRiddle : BaseRaycastableItem
 
     public override void OnRaycastExit()
     {
-        base.OnRaycastStay();
+        base.OnRaycastExit();
         outline.enabled = false;
         this.gameController = null;
     }
