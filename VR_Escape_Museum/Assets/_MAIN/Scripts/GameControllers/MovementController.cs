@@ -29,6 +29,10 @@ public class MovementController : MonoBehaviour
         gameController = _gameController;
     }
 
+    public void Awake()
+    {
+    }
+
     public void MovementUpdate(InputController.InputValues inputValues)
     {
         this.inputValues = inputValues;
