@@ -38,7 +38,7 @@ public class ExamineSystem : MonoBehaviour
         objectOriginalRotation = clickedObject.transform.rotation.eulerAngles;
         playerOriginalPosition = player.transform.position;
         playerOriginalRotation = player.transform.rotation.eulerAngles;
-        clickedObject.transform.position = player.transform.position - (transform.forward * 1.4f);
+        clickedObject.transform.position = player.transform.position - (transform.forward * 1.75f);
         gameController.SceneReferences.ExamineRoom.SetActive(true);
         gameController.UIController.ExamineView.enabled = true;
     }
