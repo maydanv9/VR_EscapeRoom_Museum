@@ -27,5 +27,6 @@ public class BaseRiddle : BaseRaycastableItem
     public override void OnInterract()
     {
         base.OnInterract();
+        outline.enabled = false;
     }
 }

@@ -1,9 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InspectRiddle : BaseRiddle
 {
+    private UnityEvent examineEvent;
+
     public override void OnRaycastEnter(GameController gameController)
     {
         base.OnRaycastEnter(gameController);
@@ -23,7 +27,7 @@ public class InspectRiddle : BaseRiddle
     {
         base.OnInterract();
         gameController.GroundController.TeleportPlayerToInspectingRoom();
-        gameController.ExamineSystem.ClickObject(this.gameObject);
-        outline.enabled = false;
+        gameController.ExamineSystem.SelectObject(this.gameObject);
     }
+
 }

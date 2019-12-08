@@ -24,6 +24,7 @@ public class GroundController : MonoBehaviour
     public void TeleportPlayerToInspectingRoom()
     {
         gameController.SceneReferences.ExamineRoom.SetActive(true);
+        gameController.SceneReferences.GameTerrain.SetActive(false);
         gameController.UIController.ExamineView.ShowView();
 
         savedPosition = player.position;
@@ -33,7 +34,8 @@ public class GroundController : MonoBehaviour
     public void TeleportPlayerToGame()
     {
         gameController.SceneReferences.ExamineRoom.SetActive(false);
-        gameController.UIController.ExamineView.enabled = false;
+        gameController.SceneReferences.GameTerrain.SetActive(true);
+        gameController.UIController.ExamineView.HideView();
 
         player.position = savedPosition;
     }
