@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 4828961221035372017}
   - component: {fileID: 6446946884313340792}
   - component: {fileID: 6986339807943070390}
+  - component: {fileID: 14468457000264641}
   m_Layer: 9
-  m_Name: PictureFrame
+  m_Name: PictureFrame_old
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,3 +112,16 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &14468457000264641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6575040681564248365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f233e1d5499f5e4e9f8e182fd8408ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outline: {fileID: 6986339807943070390}
