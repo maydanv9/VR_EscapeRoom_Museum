@@ -14,6 +14,7 @@ public class MovementController : MonoBehaviour
     [SerializeField] private Camera viewCamera;
     [SerializeField] private Transform player;
     [SerializeField] private GameObject gameCursorPrefab;
+    //[SerializeField] private GameObject initGameCursor;
     [SerializeField] private GameObject teleportPrefab;
     [SerializeField] private float rayLenght = 3f;
 
@@ -31,13 +32,14 @@ public class MovementController : MonoBehaviour
 
     public void Awake()
     {
+        //initGameCursor = Instantiate(gameCursorPrefab);
     }
 
     public void MovementUpdate(InputController.InputValues inputValues)
     {
         this.inputValues = inputValues;
-        UpdateCursor();
         CheckInput();
+        UpdateCursor();
     }
 
     private void UpdateCursor()
