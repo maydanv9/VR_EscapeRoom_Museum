@@ -19,18 +19,23 @@ public class ExamineSystem : MonoBehaviour
         gameController = _gameController;
     }
 
-    public void SelectObject(GameObject inspectedObject)
+    public void SelectObject(GameObject inspectedObject,bool objectRotated)
     {
+        if(objectRotated)
+        {
+            //Making parent the inspected object as new gameObject 
+            inspectedObject = inspectedObject.transform.parent.gameObject;
+        }
         clickedObject = Instantiate(inspectedObject, examineRoomTransform);
-        SetupObject();
+        SetupObject(objectRotated);
         gameController.SceneReferences.ExamineRoom.SetActive(true);
         gameController.UIController.ExamineView.enabled = true;
     }
 
-    private void SetupObject()
+    private void SetupObject(bool objectRotated)
     {
         clickedObject.tag = Keys.Tags.DEFAULT_TAG;
-        var objectCollider = clickedObject.GetComponent<Collider>();
+        var objectCollider = (objectRotated) ? clickedObject.GetComponentInChildren<Collider>() : clickedObject.GetComponent<Collider>();
         objectCollider.enabled = false;
         clickedObject.transform.localPosition = new Vector3(0, 1, -3.5f);
         clickedObjectBasicRotation = clickedObject.transform.localEulerAngles;
