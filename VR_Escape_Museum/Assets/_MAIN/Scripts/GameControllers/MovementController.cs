@@ -25,24 +25,10 @@ public class MovementController : MonoBehaviour
     enum objects { ground, interactable, empty };
     private objects currentObject;
 
-    public BaseRaycastableItem getNulledFocusedObject()
-    {
-        return focusedObject = null;
-    }
-
-    public BaseRaycastableItem getNulledBaseObject()
-    {
-        return currentBaseObject = null;
-    }
 
     public void Init(GameController _gameController)
     {
         gameController = _gameController;
-    }
-
-    public void Awake()
-    {
-        //initGameCursor = Instantiate(gameCursorPrefab);
     }
 
     public void MovementUpdate(InputController.InputValues inputValues)

@@ -9,9 +9,10 @@ public class ExamineSystem : MonoBehaviour
     [SerializeField] private Transform examineRoomTransform;
     [SerializeField] private Transform examineRoomInspectTransform ;
     [SerializeField] private float scaleValue;
+   
 
 
-
+    private GameObject oldInspectedObject;
     private GameObject clickedObject;
     private Vector3 clickedObjectBasicRotation;
     private static float rotation = 10.0f;
@@ -30,7 +31,8 @@ public class ExamineSystem : MonoBehaviour
         //}
         if(clickedObject != null)
         {
-            Destroy(clickedObject);
+            oldInspectedObject = clickedObject;
+            oldInspectedObject.SetActive(false);
         }
         clickedObject = Instantiate(inspectedObject, examineRoomTransform);
         SetupObject( /*objectRotated */);
@@ -53,10 +55,25 @@ public class ExamineSystem : MonoBehaviour
     #region BUTTONS
     public void ExitExamineMode()
     {
+        if(oldInspectedObject != null)
+        {
+            Destroy(oldInspectedObject);
+        }
         Destroy(clickedObject);
         //gameController.MovementController.getNulledBaseObject();
         //gameController.MovementController.getNulledFocusedObject();
         gameController.GroundController.TeleportPlayerToGame();
+    }
+
+    public void ReturnToOldInspectedObject()
+    {
+        if(oldInspectedObject != null)
+        {
+            Destroy(clickedObject);
+            clickedObject = oldInspectedObject;
+            clickedObject.transform.localEulerAngles = new Vector3(0, 0, 0);
+            clickedObject.SetActive(true);
+        }
     }
 
     public void RotateUp()
