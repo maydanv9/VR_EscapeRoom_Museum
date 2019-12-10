@@ -120,6 +120,7 @@ public class MovementController : MonoBehaviour
                     break;
                 case objects.interactable:
                     currentBaseObject.OnInterract();
+                    focusedObject = null;
                     break;
                 case objects.empty:
                     break;

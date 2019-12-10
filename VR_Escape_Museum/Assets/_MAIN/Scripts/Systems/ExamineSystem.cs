@@ -10,6 +10,7 @@ public class ExamineSystem : MonoBehaviour
     [SerializeField] private float scaleValue;
 
 
+
     private GameObject clickedObject;
     private Vector3 clickedObjectBasicRotation;
     private static float rotation = 10.0f;
@@ -19,23 +20,24 @@ public class ExamineSystem : MonoBehaviour
         gameController = _gameController;
     }
 
-    public void SelectObject(GameObject inspectedObject,bool objectRotated)
+    public void SelectObject(GameObject inspectedObject/* , bool objectRotated) */)
     {
-        if(objectRotated)
-        {
-            //Making parent the inspected object as new gameObject 
-            inspectedObject = inspectedObject.transform.parent.gameObject;
-        }
+        //if(objectRotated)
+        //{
+        //    //Making parent the inspected object as new gameObject 
+        //    inspectedObject = inspectedObject.transform.parent.gameObject;
+        //}
         clickedObject = Instantiate(inspectedObject, examineRoomTransform);
-        SetupObject(objectRotated);
+        SetupObject( /*objectRotated */);
         gameController.SceneReferences.ExamineRoom.SetActive(true);
         gameController.UIController.ExamineView.enabled = true;
     }
 
-    private void SetupObject(bool objectRotated)
+    private void SetupObject(/*bool objectRotated */)
     {
         clickedObject.tag = Keys.Tags.DEFAULT_TAG;
-        var objectCollider = (objectRotated) ? clickedObject.GetComponentInChildren<Collider>() : clickedObject.GetComponent<Collider>();
+        //var objectCollider = (objectRotated) ? clickedObject.GetComponentInChildren<Collider>() : clickedObject.GetComponent<Collider>();
+        var objectCollider = clickedObject.GetComponent<Collider>();
         objectCollider.enabled = false;
         clickedObject.transform.localPosition = new Vector3(0, 1, -3.5f);
         clickedObjectBasicRotation = clickedObject.transform.localEulerAngles;
@@ -47,6 +49,7 @@ public class ExamineSystem : MonoBehaviour
     public void ExitExamineMode()
     {
         Destroy(clickedObject);
+        
         gameController.GroundController.TeleportPlayerToGame();
     }
 

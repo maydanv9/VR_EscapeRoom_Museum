@@ -7,7 +7,8 @@ using UnityEngine.Events;
 public class InspectRiddle : BaseRiddle
 {
     private UnityEvent examineEvent;
-    [SerializeField] private bool isObjectRotated;
+    //Delete after fixing object rotations
+    //[SerializeField] private bool isObjectRotated;
 
     public override void OnRaycastEnter(GameController gameController)
     {
@@ -28,7 +29,8 @@ public class InspectRiddle : BaseRiddle
     {
         base.OnInterract();
         gameController.GroundController.TeleportPlayerToInspectingRoom();
-        gameController.ExamineSystem.SelectObject(this.gameObject,this.isObjectRotated);
+        //gameController.ExamineSystem.SelectObject(this.gameObject,this.isObjectRotated);
+        gameController.ExamineSystem.SelectObject(this.gameObject);
     }
 
 }
