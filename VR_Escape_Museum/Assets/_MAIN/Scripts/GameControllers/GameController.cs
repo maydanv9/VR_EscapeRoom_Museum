@@ -22,6 +22,9 @@ public class GameController : MonoBehaviour
     [SerializeField] private ExamineSystem examineSystem;
     public ExamineSystem ExamineSystem { get { return examineSystem; } }
 
+    [SerializeField] private RiddleSpawner riddleSpawner;
+    public RiddleSpawner RiddleSpawner { get { return riddleSpawner; } }
+
     private void Awake()
     {
         Initialization();
