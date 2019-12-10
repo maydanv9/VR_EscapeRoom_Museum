@@ -7,6 +7,7 @@ public class ExamineSystem : MonoBehaviour
 {
     private GameController gameController;
     [SerializeField] private Transform examineRoomTransform;
+    [SerializeField] private Transform examineRoomInspectTransform ;
     [SerializeField] private float scaleValue;
 
 
@@ -27,6 +28,10 @@ public class ExamineSystem : MonoBehaviour
         //    //Making parent the inspected object as new gameObject 
         //    inspectedObject = inspectedObject.transform.parent.gameObject;
         //}
+        if(clickedObject != null)
+        {
+            Destroy(clickedObject);
+        }
         clickedObject = Instantiate(inspectedObject, examineRoomTransform);
         SetupObject( /*objectRotated */);
         gameController.SceneReferences.ExamineRoom.SetActive(true);
@@ -49,7 +54,8 @@ public class ExamineSystem : MonoBehaviour
     public void ExitExamineMode()
     {
         Destroy(clickedObject);
-        
+        //gameController.MovementController.getNulledBaseObject();
+        //gameController.MovementController.getNulledFocusedObject();
         gameController.GroundController.TeleportPlayerToGame();
     }
 

@@ -25,6 +25,16 @@ public class MovementController : MonoBehaviour
     enum objects { ground, interactable, empty };
     private objects currentObject;
 
+    public BaseRaycastableItem getNulledFocusedObject()
+    {
+        return focusedObject = null;
+    }
+
+    public BaseRaycastableItem getNulledBaseObject()
+    {
+        return currentBaseObject = null;
+    }
+
     public void Init(GameController _gameController)
     {
         gameController = _gameController;
@@ -39,6 +49,7 @@ public class MovementController : MonoBehaviour
     {
         this.inputValues = inputValues;
         CheckInput();
+        Debug.Log(entered);
         UpdateCursor();
     }
 
@@ -71,7 +82,7 @@ public class MovementController : MonoBehaviour
                     SetCursors(false, false);
                 }
                 currentObject = objects.interactable;
-            } 
+            }
             else
             {
                 SetCursors(true, false);
@@ -94,18 +105,31 @@ public class MovementController : MonoBehaviour
         {
             try
             {
-                currentBaseObject = hit.collider.gameObject.GetComponent<BaseRaycastableItem>();
+                currentBaseObject = hit.collider.gameObject.GetComponent<BaseRaycastableItem>();      
             }
+
             catch (NullReferenceException)
             {
             }
 
             if (currentBaseObject == null && entered)
             {
-                focusedObject.OnRaycastExit();
+                if(focusedObject != null)
+                {
+                    focusedObject.OnRaycastExit();
+                }
                 entered = false;
                 focusedObject = null;
             }
+        }
+        else
+        {
+            // if looking at nothing disable everything
+            if(currentBaseObject != null)
+            currentBaseObject.OnRaycastExit();
+            entered = false;
+            currentBaseObject = null;
+            focusedObject = null;
         }
     }
 
@@ -119,8 +143,8 @@ public class MovementController : MonoBehaviour
                     gameController.GroundController.TeleportPlayer(teleportPrefab.transform.position);
                     break;
                 case objects.interactable:
-                    currentBaseObject.OnInterract();
-                    focusedObject = null;
+                    focusedObject.OnInterract();
+                    entered = false;
                     break;
                 case objects.empty:
                     break;
