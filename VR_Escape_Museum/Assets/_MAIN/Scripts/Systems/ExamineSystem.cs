@@ -71,12 +71,16 @@ public class ExamineSystem : MonoBehaviour
 
     public void ScaleUp()
     {
+        if(ZoomLimiter(clickedObject) < 3.0f)
         clickedObject.transform.localScale += new Vector3(scaleValue, scaleValue, scaleValue);
     }
 
     public void ScaleDown()
     {
-        clickedObject.transform.localScale -= new Vector3(scaleValue, scaleValue, scaleValue);
+        if(ZoomLimiter(clickedObject) > 1.0f)
+            clickedObject.transform.localScale -= new Vector3(scaleValue, scaleValue, scaleValue);
+        else if(ZoomLimiter(clickedObject) >= 0.5f)
+            clickedObject.transform.localScale -= new Vector3(scaleValue / 2, scaleValue / 2, scaleValue / 2);
     }
 
     public void ResetScale()
@@ -89,5 +93,11 @@ public class ExamineSystem : MonoBehaviour
     {
         clickedObject.transform.localEulerAngles = clickedObjectBasicRotation;
     }
+
+    private float ZoomLimiter(GameObject clickedObject)
+    {
+        return clickedObject.transform.localScale.x;
+    }
+
     #endregion
 }
