@@ -73,6 +73,7 @@ public class ExamineSystem : MonoBehaviour
             clickedObject = oldInspectedObject;
             clickedObject.transform.localEulerAngles = new Vector3(0, 0, 0);
             clickedObject.SetActive(true);
+            oldInspectedObject = null;
         }
     }
 
