@@ -14,7 +14,7 @@ public class RiddleSpawner : MonoBehaviour
     {
         for(int i = 0; i < riddleTransforms.Count; i++)
         {
-            var randomNumber = Random.Range(0, 2);
+            var randomNumber = Random.Range(0, riddles.Count);
             var riddle = Instantiate(riddles[randomNumber], riddlesParent);
             riddle.transform.position = riddleTransforms[i].position;
         }
