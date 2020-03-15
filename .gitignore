@@ -3,21 +3,33 @@
 # =============== #
 /New Unity Project/
 /VR_Escape_Museum/[Ll]ibrary/
+/VR_Escape_Museum_CardVR/[Ll]ibrary/
 /VR_Escape_Museum/[Tt]emp/
+/VR_Escape_Museum_CardVR/[Tt]emp/
 /VR_Escape_Museum/[Oo]bj/
+/VR_Escape_Museum_CardVR/[Oo]bj/
 /VR_Escape_Museum/[Bb]uild/
+/VR_Escape_Museum_CardVR/[Bb]uild/
 /VR_Escape_Museum/[Bb]uilds/
+/VR_Escape_Museum_CardVR/[Bb]uilds/
 /VR_Escape_Museum/[Ll]ogs/
+/VR_Escape_Museum_CardVR/[Ll]ogs/
 !/VR_Escape_Museum/[Aa]ssets/**/*.meta
+!/VR_Escape_Museum_CardVR/[Aa]ssets/**/*.meta
 /VR_Escape_Museum/Assets/AssetStoreTools*
+/VR_Escape_Museum_CardVR/Assets/AssetStoreTools*
 /VR_Escape_Museum/UnityPackageManager
+/VR_Escape_Museum_CardVR/UnityPackageManager
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
 /VR_Escape_Museum/.consulo/
+/VR_Escape_Museum_CardVR/.consulo/
 /VR_Escape_Museum/.vs/
+/VR_Escape_Museum_CardVR/.vs/
 /VR_Escape_Museum/ExportedObj/
+/VR_Escape_Museum_CardVR/ExportedObj/
 *.svd
 *.userprefs
 *.csproj
@@ -37,6 +49,7 @@
 # Gradle cache directory #
 # ====================== #
 /VR_Escape_Museum/.gradle/
+/VR_Escape_Museum_CardVR/.gradle/
 
 # ============================= #
 # Unity3D generated meta files  #
