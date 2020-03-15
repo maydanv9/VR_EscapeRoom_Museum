@@ -79,8 +79,10 @@ public class Outline : MonoBehaviour {
   private Material outlineFillMaterial;
 
   private bool needsUpdate;
+    internal Color effectColor;
+    internal Vector2 effectDistance;
 
-  void Awake() {
+    void Awake() {
 
     // Cache renderers
     renderers = GetComponentsInChildren<Renderer>();

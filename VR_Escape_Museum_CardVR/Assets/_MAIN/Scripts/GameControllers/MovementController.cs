@@ -13,7 +13,7 @@ public class MovementController : MonoBehaviour
     private GameController gameController;
     [SerializeField] private Camera viewCamera;
     [SerializeField] private Transform player;
-    [SerializeField] private GameObject gameCursorPrefab;
+    //[SerializeField] private GameObject gameCursorPrefab;
     //[SerializeField] private GameObject initGameCursor;
     [SerializeField] private GameObject teleportPrefab;
     [SerializeField] private float rayLenght = 3f;
@@ -35,7 +35,6 @@ public class MovementController : MonoBehaviour
     {
         this.inputValues = inputValues;
         CheckInput();
-        Debug.Log(entered);
         UpdateCursor();
     }
 
@@ -73,8 +72,8 @@ public class MovementController : MonoBehaviour
             {
                 SetCursors(true, false);
                 Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.blue);
-                gameCursorPrefab.transform.position = ray.origin + ray.direction.normalized;
-                gameCursorPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
+                //gameCursorPrefab.transform.position = ray.origin + ray.direction.normalized;
+                //gameCursorPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
                 currentObject = objects.empty;
             }
         }
@@ -82,8 +81,8 @@ public class MovementController : MonoBehaviour
         {
             SetCursors(true, false);
             Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.blue);
-            gameCursorPrefab.transform.position = ray.origin + ray.direction.normalized;
-            gameCursorPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
+            //gameCursorPrefab.transform.position = ray.origin + ray.direction.normalized;
+            //gameCursorPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
             currentObject = objects.empty;
         }
 
@@ -121,7 +120,7 @@ public class MovementController : MonoBehaviour
 
     private void CheckInput()
     {
-        if (inputValues.isLeftMousePressed)
+        if (inputValues.isLeftMousePressed || inputValues.isPadAPressed)
         {
             switch (currentObject)
             {
@@ -140,7 +139,7 @@ public class MovementController : MonoBehaviour
 
     public void SetCursors(bool valueGameCursor, bool valueTeleportPrefab)
     {
-        gameCursorPrefab.SetActive(valueGameCursor);
+        //gameCursorPrefab.SetActive(valueGameCursor);
         teleportPrefab.SetActive(valueTeleportPrefab);
     }
 }
