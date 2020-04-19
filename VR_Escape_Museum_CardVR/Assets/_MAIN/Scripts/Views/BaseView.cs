@@ -45,6 +45,14 @@ public class BaseView : MonoBehaviour {
         sequence = DOTween.Sequence().Append(this.transform.DOLocalMove(hiddenPosition, 0f)).Append(this.transform.DOLocalMove(shownPosition, .3f)).Play();
         gameObject.SetActive(true);
     }
+
+    public virtual void ShowAndHide()
+    {
+        gameObject.SetActive(true);
+        sequence = DOTween.Sequence().Append(this.transform.DOLocalMove(hiddenPosition, 0f)).Append(this.transform.DOLocalMove(shownPosition, .5f)).Play();
+        sequence = DOTween.Sequence().SetDelay(2f).Append(this.transform.DOLocalMove(hiddenPosition, .5f)).Play();
+        //gameObject.SetActive(false);
+    }
     #endregion
 
     public virtual void ShowView()

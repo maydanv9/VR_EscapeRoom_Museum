@@ -19,6 +19,8 @@ public class GameState : BaseState, IGameView, IMovement {
         this.gameController.MovementController.Init(gameController);
         this.gameController.ExamineSystem.Init(gameController);
         this.gameController.GroundController.Init(gameController);
+        this.gameController.DataController.Init(gameController);
+        this.gameController.EventsController.Init(gameController);
     }
 
     public override void UpdateState(GameController gameController)

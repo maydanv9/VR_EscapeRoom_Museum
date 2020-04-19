@@ -12,5 +12,6 @@ public class Keys : MonoBehaviour
     {
         public static string DEFAULT_TAG = "Untagged";
         public static string INTERACTABLE_TAG = "Interactable";
+        public static string GROUND_TAG = "Ground";
     }
 }

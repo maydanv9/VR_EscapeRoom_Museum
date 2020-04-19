@@ -45,52 +45,44 @@ public class MovementController : MonoBehaviour
 
         if(Physics.Raycast(ray, out hit, rayLenght))
             {
-            if(hit.collider.tag == "Ground") 
-                {
-                Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.red);
-                SetCursors(false, true);
-                teleportPrefab.transform.position = hit.point;
-                teleportPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
-                currentObject = objects.ground;
-            } 
-            else if(hit.collider.tag == "Interactable") 
-                {
-                if(currentBaseObject == focusedObject && focusedObject != null)
-                {
-                    focusedObject.OnRaycastStay();
-                } 
-                else if(currentBaseObject != null && !entered)
-                {
-                    focusedObject = currentBaseObject;
-                    focusedObject.OnRaycastEnter(gameController);
-                    entered = true;
-                    SetCursors(false, false);
-                }
-                currentObject = objects.interactable;
-            }
-            else
+            switch (hit.collider.tag)
             {
-                SetCursors(true, false);
-                Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.blue);
-                //gameCursorPrefab.transform.position = ray.origin + ray.direction.normalized;
-                //gameCursorPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
-                currentObject = objects.empty;
+                case "Ground":
+                    Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.red);
+                    SetCursors(false, true);
+                    teleportPrefab.transform.position = hit.point;
+                    teleportPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+                    currentObject = objects.ground;
+                    break;
+                case "Interactable":
+                    if (currentBaseObject == focusedObject && focusedObject != null)
+                    {
+                        focusedObject.OnRaycastStay();
+                    }
+                    else if (currentBaseObject != null && !entered)
+                    {
+                        focusedObject = currentBaseObject;
+                        focusedObject.OnRaycastEnter(gameController);
+                        entered = true;
+                        SetCursors(false, false);
+                    }
+                    currentObject = objects.interactable;
+                    break;
+                default:
+                    SetCursors(true, false);
+                    Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.blue);
+                    //gameCursorPrefab.transform.position = ray.origin + ray.direction.normalized;
+                    //gameCursorPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
+                    currentObject = objects.empty;
+                    break;
             }
-        }
-        else
-        {
-            SetCursors(true, false);
-            Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.blue);
-            //gameCursorPrefab.transform.position = ray.origin + ray.direction.normalized;
-            //gameCursorPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
-            currentObject = objects.empty;
         }
 
-        if (Physics.Raycast(ray, out hit, rayLenght*2))
+        if (Physics.Raycast(ray, out hit, rayLenght * 2))
         {
             try
             {
-                currentBaseObject = hit.collider.gameObject.GetComponent<BaseRaycastableItem>();      
+                currentBaseObject = hit.collider.gameObject.GetComponent<BaseRaycastableItem>();
             }
 
             catch (NullReferenceException)
@@ -99,7 +91,7 @@ public class MovementController : MonoBehaviour
 
             if (currentBaseObject == null && entered)
             {
-                if(focusedObject != null)
+                if (focusedObject != null)
                 {
                     focusedObject.OnRaycastExit();
                 }
@@ -110,8 +102,7 @@ public class MovementController : MonoBehaviour
         else
         {
             // if looking at nothing disable everything
-            if(currentBaseObject != null)
-            currentBaseObject.OnRaycastExit();
+            if (currentBaseObject != null) currentBaseObject.OnRaycastExit();
             entered = false;
             currentBaseObject = null;
             focusedObject = null;

@@ -5,14 +5,15 @@ using UnityEngine.UI;
 
 public class GameView : BaseView {
 
-    [SerializeField] private Text mainText;
-    public IGameView listener;
 
+    [SerializeField] private NotificationView notificationView;
+    public NotificationView NotificationView => notificationView;
+
+    public IGameView listener;
 
     public override void ShowView()
     {
         base.ShowView();
-        mainText.text = "GameView";
     }
 
     public override void HideView()

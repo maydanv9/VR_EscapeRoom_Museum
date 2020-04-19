@@ -25,6 +25,12 @@ public class GameController : MonoBehaviour
     [SerializeField] private RiddleSpawner riddleSpawner;
     public RiddleSpawner RiddleSpawner { get { return riddleSpawner; } }
 
+    [SerializeField] private DataController dataController;
+    public DataController DataController => dataController;
+
+    [SerializeField] private EventsController eventsController;
+    public EventsController EventsController => eventsController;
+
     private void Awake()
     {
         Initialization();

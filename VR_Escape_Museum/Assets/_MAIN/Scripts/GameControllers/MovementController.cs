@@ -25,7 +25,6 @@ public class MovementController : MonoBehaviour
     enum objects { ground, interactable, empty };
     private objects currentObject;
 
-
     public void Init(GameController _gameController)
     {
         gameController = _gameController;
@@ -35,7 +34,6 @@ public class MovementController : MonoBehaviour
     {
         this.inputValues = inputValues;
         CheckInput();
-        Debug.Log(entered);
         UpdateCursor();
     }
 
@@ -43,49 +41,50 @@ public class MovementController : MonoBehaviour
     {
         Ray ray = new Ray(viewCamera.transform.position, viewCamera.transform.rotation * Vector3.forward);
         RaycastHit hit;
-
+        Debug.Log("UpdateCursor()");
         if(Physics.Raycast(ray, out hit, rayLenght))
             {
-            if(hit.collider.tag == "Ground") 
-                {
-                Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.red);
-                SetCursors(false, true);
-                teleportPrefab.transform.position = hit.point;
-                teleportPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
-                currentObject = objects.ground;
-            } 
-            else if(hit.collider.tag == "Interactable") 
-                {
-                if(currentBaseObject == focusedObject && focusedObject != null)
-                {
-                    focusedObject.OnRaycastStay();
-                } 
-                else if(currentBaseObject != null && !entered)
-                {
-                    focusedObject = currentBaseObject;
-                    focusedObject.OnRaycastEnter(gameController);
-                    entered = true;
-                    SetCursors(false, false);
-                }
-                currentObject = objects.interactable;
-            }
-            else
+            Debug.Log("switch (hit.collider.tag)");
+            switch (hit.collider.tag)
             {
-                SetCursors(true, false);
-                Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.blue);
-                gameCursorPrefab.transform.position = ray.origin + ray.direction.normalized;
-                gameCursorPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
-                currentObject = objects.empty;
+                case "Ground":
+                    Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.red);
+                    SetCursors(false, true);
+                    teleportPrefab.transform.position = hit.point;
+                    teleportPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+                    currentObject = objects.ground;
+                    break;
+                case "Interactable":
+                    if (currentBaseObject == focusedObject && focusedObject != null)
+                    {
+                        focusedObject.OnRaycastStay();
+                    }
+                    else if (currentBaseObject != null && !entered)
+                    {
+                        focusedObject = currentBaseObject;
+                        focusedObject.OnRaycastEnter(gameController);
+                        entered = true;
+                        SetCursors(false, false);
+                    }
+                    currentObject = objects.interactable;
+                    break;
+                default:
+                    SetCursors(true, false);
+                    Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.blue);
+                    gameCursorPrefab.transform.position = ray.origin + ray.direction.normalized;
+                    gameCursorPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
+                    currentObject = objects.empty;
+                    break;
             }
         }
-        else
-        {
-            SetCursors(true, false);
-            Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.blue);
-            gameCursorPrefab.transform.position = ray.origin + ray.direction.normalized;
-            gameCursorPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
-            currentObject = objects.empty;
-        }
+        //else
+        //{
+        //    SetCursors(true, false);
+        //    Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.blue);
+        //    gameCursorPrefab.transform.position = ray.origin + ray.direction.normalized;
+        //    gameCursorPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
+        //    currentObject = objects.empty;
+        //}
 
         if (Physics.Raycast(ray, out hit, rayLenght*2))
         {
