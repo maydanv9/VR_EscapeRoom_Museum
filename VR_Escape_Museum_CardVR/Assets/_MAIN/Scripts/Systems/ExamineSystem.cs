@@ -43,9 +43,6 @@ public class ExamineSystem : MonoBehaviour
     private void SetupObject(/*bool objectRotated */)
     {
         clickedObject.tag = Keys.Tags.DEFAULT_TAG;
-        //var objectCollider = (objectRotated) ? clickedObject.GetComponentInChildren<Collider>() : clickedObject.GetComponent<Collider>();
-        var objectCollider = clickedObject.GetComponent<Collider>();
-        objectCollider.enabled = false;
         clickedObject.transform.localPosition = new Vector3(0, 1, -3.5f);
         clickedObjectBasicRotation = clickedObject.transform.localEulerAngles;
         ResetScale();

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using NaughtyAttributes;
 
 public class BasePickupable : BaseRiddle
 {
-    [SerializeField] protected string objectName;
+    [ReadOnly] [SerializeField] protected string objectName;
     public string ObjectName => objectName;
 }

@@ -26,4 +26,6 @@ public class Pickupable_Key : BasePickupable
         gameController.EventsController.OnObjectCollectedEvent.Invoke(this);
     }
     #endregion
+
+    private void OnValidate() => this.objectName = Keys.Items.KEY;
 }

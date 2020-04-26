@@ -31,6 +31,9 @@ public class GameController : MonoBehaviour
     [SerializeField] private EventsController eventsController;
     public EventsController EventsController => eventsController;
 
+    [SerializeField] private MachineController machineController;
+    public MachineController MachineController => machineController;
+
     private void Awake()
     {
         Initialization();

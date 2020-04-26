@@ -53,6 +53,15 @@ public class BaseView : MonoBehaviour {
         sequence = DOTween.Sequence().SetDelay(2f).Append(this.transform.DOLocalMove(hiddenPosition, .5f)).Play();
         //gameObject.SetActive(false);
     }
+    public virtual void ScaleUpAndShow()
+    {
+        gameObject.SetActive(true);
+        sequence = DOTween.Sequence().
+            Append(this.transform.DOScale(new Vector3(0, 0, 0), 0f)).
+            Append(this.transform.DOScale(new Vector3(1, 1, 1), .5f)).
+            Append(this.transform.DOScale(new Vector3(1, 1, 1), 2f)).
+            Append(this.transform.DOScale(new Vector3(0, 0, 0), .5f)).Play();
+    }
     #endregion
 
     public virtual void ShowView()

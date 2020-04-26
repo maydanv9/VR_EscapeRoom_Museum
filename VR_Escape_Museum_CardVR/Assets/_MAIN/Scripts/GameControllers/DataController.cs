@@ -7,7 +7,7 @@ public class DataController : MonoBehaviour
 {
     private GameController gameController;
     [SerializeField] private List<BasePickupable> pickedItems = new List<BasePickupable>();
-
+    public List<BasePickupable> PickedItems => pickedItems;
     public void Init(GameController gameController)
     {
         this.gameController = gameController;

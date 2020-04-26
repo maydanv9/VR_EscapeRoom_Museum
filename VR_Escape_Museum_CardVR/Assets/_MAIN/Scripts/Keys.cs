@@ -13,4 +13,11 @@ public class Keys : MonoBehaviour
         public static string DEFAULT_TAG = "Untagged";
         public static string INTERACTABLE_TAG = "Interactable";
     }
+    public static class Items
+    {
+        public static string KEY = "Key";
+        public static string COIN = "Coin";
+        public static string CARD = "Card";
+
+    }
 }
