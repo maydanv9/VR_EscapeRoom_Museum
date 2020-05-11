@@ -12,7 +12,8 @@ public class BaseRaycastableItem : MonoBehaviour
 
     public virtual void OnRaycastEnter(GameController gameController)
     {
-        outline.enabled = true;
+        if(outline != null) outline.enabled = true;
+
         this.gameController = gameController;
     }
     public virtual void OnRaycastStay(){}
