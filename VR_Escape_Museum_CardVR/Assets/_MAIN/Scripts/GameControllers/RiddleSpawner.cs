@@ -9,14 +9,18 @@ public class RiddleSpawner : MonoBehaviour
     [SerializeField] private List<GameObject> statueRiddles; //TO DO: CHANGE TO BASE INTERACTABLE AFTER FIXING PAINTING
     [SerializeField] private List<GameObject> chestRiddle; //TO DO: CHANGE TO BASE INTERACTABLE AFTER FIXING PAINTING
     [SerializeField] private List<GameObject> cabinetRiddle; //TO DO: CHANGE TO BASE INTERACTABLE AFTER FIXING PAINTING
+    [SerializeField] private List<BinRiddle> bins; //TO DO: CHANGE TO BASE INTERACTABLE AFTER FIXING PAINTING
+    [SerializeField] private MachineController machine; //TO DO: CHANGE TO BASE INTERACTABLE AFTER FIXING PAINTING
     [SerializeField] private Transform riddlesParent;
     [SerializeField] private TMP_Text riddleKey;
+    [SerializeField] private GameObject notePrefab;
     private int riddlesNumber;
-
-
+    [SerializeField] private int[] keys;
+    int i;
     public void GenerateRiddles()
     {
-        GenerateKey();
+        i = 0;
+        keys = new int[4];
         //GENERATE PAINTING
         var randomNumber = Random.Range(0, paintingRiddles.Count);
         var randomRiddleNumber = Random.Range(0, riddleTransforms.Count);
@@ -35,8 +39,10 @@ public class RiddleSpawner : MonoBehaviour
         randomNumber = Random.Range(0, cabinetRiddle.Count);
         randomRiddleNumber = Random.Range(0, riddleTransforms.Count);
         riddle = Instantiate(cabinetRiddle[randomNumber], riddlesParent);
-        //BaseRiddle key = riddle.GetComponent<BaseRiddle>();
-        //key.SetBaseNote(GenerateKey());
+        BaseRiddle key = riddle.GetComponent<BaseRiddle>();
+        GameObject note = Instantiate(notePrefab);
+        BaseNote baseNote = note.GetComponent<BaseNote>();
+        key.SetBaseNote(GenerateKey(), baseNote);
         riddle.transform.position = riddleTransforms[randomRiddleNumber].position;
         riddle.transform.rotation = riddleTransforms[randomRiddleNumber].rotation;
         riddleTransforms.RemoveAt(randomRiddleNumber);
@@ -44,19 +50,40 @@ public class RiddleSpawner : MonoBehaviour
         randomNumber = Random.Range(0, chestRiddle.Count);
         randomRiddleNumber = Random.Range(0, riddleTransforms.Count);
         riddle = Instantiate(chestRiddle[randomNumber], riddlesParent);
-        //key = riddle.GetComponent<BaseRiddle>();
-        //key.SetBaseNote(GenerateKey());
+        key = riddle.GetComponentInChildren<BaseRiddle>();
+        note = Instantiate(notePrefab);
+        baseNote = note.GetComponent<BaseNote>();
+        key.SetBaseNote(GenerateKey(), baseNote);
         riddle.transform.position = riddleTransforms[randomRiddleNumber].position;
         riddle.transform.rotation = riddleTransforms[randomRiddleNumber].rotation;
         riddleTransforms.RemoveAt(randomRiddleNumber);
         //BINS
+        randomNumber = Random.Range(0, bins.Count);
+        BinRiddle binRiddle = bins[randomNumber];
+        key = binRiddle.GetComponent<BaseRiddle>();
+        note = Instantiate(notePrefab);
+        baseNote = note.GetComponent<BaseNote>();
+        key.SetBaseNote(GenerateKey(), baseNote);
         //MACHINE
+        key = machine.GetComponent<BaseRiddle>();
+        note = Instantiate(notePrefab);
+        baseNote = note.GetComponent<BaseNote>();
+        key.SetBaseNote(GenerateKey(), baseNote);
+    }
+
+    private void GenerateNote(GameObject riddle)
+    {
+        BaseRiddle key = riddle.GetComponent<BaseRiddle>();
+        GameObject note = Instantiate(notePrefab);
+        BaseNote baseNote = note.GetComponent<BaseNote>();
+        key.SetBaseNote(GenerateKey(), baseNote);
     }
 
     private int GenerateKey()
     {
-        int key  = Random.Range(1, 9);
-        riddleKey.text = key.ToString();
+        int key = Random.Range(1, 9);
+        keys[i] = key;
+        i++;
         return key;
     }
 }

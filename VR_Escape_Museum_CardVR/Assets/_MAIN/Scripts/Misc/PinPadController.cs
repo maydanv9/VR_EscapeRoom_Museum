@@ -7,13 +7,13 @@ using UnityEngine.EventSystems;
 
 public class PinPadController : MonoBehaviour
 {
-    [SerializeField] private string codeString;
+    [SerializeField] private string codeString; 
     [SerializeField] private TMP_Text codeValue;
     [SerializeField] string word = null;
     [SerializeField] int wordIndex = -1;
     [SerializeField] char[] nameChar = new char[5];
     [SerializeField] string alpha = null;
-
+    //Metoda wywoływana na przycisku 1,2,3 itd...
     public void OnButtonPressedCall(string _value)
     {
         if (wordIndex < 4)
@@ -28,11 +28,11 @@ public class PinPadController : MonoBehaviour
 
             if (codeValue.text.Equals(codeString))
             {
-                codeValue.text = "PogO";
+                //TO DO: Open doors
             }
         }
     }
-
+    //Metoda wywoływana na przycisku DEL
     public void Backspace()
     {
         alpha = null;
@@ -48,7 +48,7 @@ public class PinPadController : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(null);
         }
     }
-
+    //Metoda wywoływania na początku stanu z miejsca, gdzie generowane są zagadki.
     public void SetCode(string _code)
     {
         codeString = _code;

@@ -7,7 +7,8 @@ public class BaseRaycastableItem : MonoBehaviour
 {
     [Header("BaseRaycastableItem: ")]
     [SerializeField] protected Outline outline;
-
+    [SerializeField] protected List<Transform> spawnNoteLists = new List<Transform>();
+    public List<Transform> SpawnNoteLists => spawnNoteLists;
     protected GameController gameController;
 
     public virtual void OnRaycastEnter(GameController gameController)

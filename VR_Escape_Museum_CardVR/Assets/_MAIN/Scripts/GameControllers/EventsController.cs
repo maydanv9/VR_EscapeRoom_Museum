@@ -36,6 +36,7 @@ public class EventsController : MonoBehaviour
             {
                 gameController.MachineController.OnBuyItemEvent();
                 gameController.DataController.PickedItems.Remove(item);
+                return;
             }
         }
     }

@@ -8,4 +8,12 @@ public class BasePickupable : BaseRiddle
 {
     [ReadOnly] [SerializeField] protected string objectName;
     public string ObjectName => objectName;
+
+    private bool isCollected;
+    public bool IsCollected => isCollected;
+
+    public virtual void Collect()
+    {
+        isCollected = true;
+    }
 }

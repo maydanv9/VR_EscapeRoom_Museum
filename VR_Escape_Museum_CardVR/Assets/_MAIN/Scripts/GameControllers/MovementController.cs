@@ -20,8 +20,8 @@ public class MovementController : MonoBehaviour
 
     private InputController.InputValues inputValues;
     private bool entered = false;
-    [SerializeField] private BaseRaycastableItem focusedObject;
-    [SerializeField] private BaseRaycastableItem currentBaseObject;
+    [SerializeField] private BaseRaycastableItem currentfocusedObject;
+    [SerializeField] private BaseRaycastableItem newBaseObject;
     enum objects { ground, interactable, empty };
     private objects currentObject;
 
@@ -43,11 +43,25 @@ public class MovementController : MonoBehaviour
         Ray ray = new Ray(viewCamera.transform.position, viewCamera.transform.rotation * Vector3.forward);
         RaycastHit hit;
 
-        if(Physics.Raycast(ray, out hit, rayLenght))
+        SetCursors(true, false);
+        currentObject = objects.empty;
+
+
+        if (Physics.Raycast(ray, out hit, rayLenght))
+        {
+            try
             {
+                newBaseObject = hit.collider.gameObject.GetComponent<BaseRaycastableItem>();
+            }
+            catch (NullReferenceException)
+            {
+                newBaseObject = null;
+            }
+
             switch (hit.collider.tag)
             {
                 case "Ground":
+                    OnRaycastExitMethod();
                     Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.red);
                     SetCursors(false, true);
                     teleportPrefab.transform.position = hit.point;
@@ -55,60 +69,69 @@ public class MovementController : MonoBehaviour
                     currentObject = objects.ground;
                     break;
                 case "Interactable":
-                    if (currentBaseObject == focusedObject && focusedObject != null)
+                    if (newBaseObject == currentfocusedObject && currentfocusedObject != null)
                     {
-                        focusedObject.OnRaycastStay();
+                        currentfocusedObject.OnRaycastStay();
                     }
-                    else if (currentBaseObject != null && !entered)
+                    else if (newBaseObject != null && newBaseObject != currentfocusedObject)
                     {
-                        focusedObject = currentBaseObject;
-                        focusedObject.OnRaycastEnter(gameController);
+                        currentfocusedObject = newBaseObject;
+                        currentfocusedObject.OnRaycastEnter(gameController);
                         entered = true;
                         SetCursors(false, false);
+
                     }
                     currentObject = objects.interactable;
                     break;
                 default:
+                    OnRaycastExitMethod();
                     SetCursors(true, false);
-                    Debug.DrawRay(viewCamera.transform.position, viewCamera.transform.forward * 10, Color.blue);
-                    //gameCursorPrefab.transform.position = ray.origin + ray.direction.normalized;
-                    //gameCursorPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, -ray.direction);
                     currentObject = objects.empty;
                     break;
             }
         }
 
-        if (Physics.Raycast(ray, out hit, rayLenght * 2))
-        {
-            try
-            {
-                currentBaseObject = hit.collider.gameObject.GetComponent<BaseRaycastableItem>();
-            }
+        //if (Physics.Raycast(ray, out hit, rayLenght))
+        //{
+        //    try
+        //    {
+        //        newBaseObject = hit.collider.gameObject.GetComponent<BaseRaycastableItem>();
+        //        Debug.Log("T");
 
-            catch (NullReferenceException)
-            {
-            }
+        //    }
 
-            if (currentBaseObject == null && entered)
-            {
-                if (focusedObject != null)
-                {
-                    focusedObject.OnRaycastExit();
-                }
-                entered = false;
-                focusedObject = null;
-            }
-        }
-        else
+        //    catch (NullReferenceException)
+        //    {
+        //        newBaseObject = null;
+        //    }
+        //}
+            //if (newBaseObject == null && entered)
+            //{
+            //    if (currentfocusedObject != null)
+            //    {
+            //        currentfocusedObject.OnRaycastExit();
+            //    }
+            //    entered = false;
+            //    currentfocusedObject = null;
+            //}
+        //}
+        //else
+        //{
+        //    // if looking at nothing disable everything
+        //    if (newBaseObject != null) newBaseObject.OnRaycastExit();
+        //    entered = false;
+        //    newBaseObject = null;
+        //    currentfocusedObject = null;
+        //}
+    }
+    private void OnRaycastExitMethod()
+    {
+        if (newBaseObject == null && currentfocusedObject != null)
         {
-            // if looking at nothing disable everything
-            if (currentBaseObject != null) currentBaseObject.OnRaycastExit();
-            entered = false;
-            currentBaseObject = null;
-            focusedObject = null;
+            currentfocusedObject.OnRaycastExit();
+            currentfocusedObject = null;
         }
     }
-
     private void CheckInput()
     {
         if (inputValues.isLeftMousePressed || inputValues.isPadAPressed)
@@ -119,7 +142,7 @@ public class MovementController : MonoBehaviour
                     gameController.GroundController.TeleportPlayer(teleportPrefab.transform.position);
                     break;
                 case objects.interactable:
-                    focusedObject.OnInterract();
+                    currentfocusedObject.OnInterract();
                     entered = false;
                     break;
                 case objects.empty:
