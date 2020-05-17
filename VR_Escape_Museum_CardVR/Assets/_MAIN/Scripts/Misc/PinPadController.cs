@@ -9,10 +9,10 @@ public class PinPadController : MonoBehaviour
 {
     [SerializeField] private string codeString; 
     [SerializeField] private TMP_Text codeValue;
-    [SerializeField] string word = null;
-    [SerializeField] int wordIndex = -1;
-    [SerializeField] char[] nameChar = new char[5];
-    [SerializeField] string alpha = null;
+    string word = null;
+    int wordIndex = -1;
+    char[] nameChar = new char[5];
+    string alpha = null;
     //Metoda wywoływana na przycisku 1,2,3 itd...
     public void OnButtonPressedCall(string _value)
     {
@@ -29,6 +29,7 @@ public class PinPadController : MonoBehaviour
             if (codeValue.text.Equals(codeString))
             {
                 //TO DO: Open doors
+                Debug.Log("Open doors");
             }
         }
     }

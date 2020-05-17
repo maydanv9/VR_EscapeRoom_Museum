@@ -17,6 +17,8 @@ public class BaseRiddle : BaseRaycastableItem
     {
         var randomInt = Random.Range(0, spawnNoteLists.Count);
         baseNote.gameObject.transform.parent = spawnNoteLists[randomInt];
-        baseNote.gameObject.transform.position = spawnNoteLists[randomInt].position;
+        baseNote.transform.position = new Vector3(0, 0, 0);
+        baseNote.transform.localPosition = new Vector3(0, 0, 0);
+        baseNote.transform.localEulerAngles = new Vector3(0, 0, 0);
     }
 }

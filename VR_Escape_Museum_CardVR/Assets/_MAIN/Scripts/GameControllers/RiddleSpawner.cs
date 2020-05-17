@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 public class RiddleSpawner : MonoBehaviour
 {
+    private GameController gameController;
     [SerializeField] private List<Transform> riddleTransforms;
     [SerializeField] private List<GameObject> paintingRiddles; //TO DO: CHANGE TO BASE INTERACTABLE AFTER FIXING PAINTING
     [SerializeField] private List<GameObject> statueRiddles; //TO DO: CHANGE TO BASE INTERACTABLE AFTER FIXING PAINTING
@@ -17,6 +18,13 @@ public class RiddleSpawner : MonoBehaviour
     private int riddlesNumber;
     [SerializeField] private int[] keys;
     int i;
+
+    public void Init(GameController _gameController)
+    {
+        gameController = _gameController;
+        GenerateRiddles();
+    }
+
     public void GenerateRiddles()
     {
         i = 0;
@@ -69,6 +77,10 @@ public class RiddleSpawner : MonoBehaviour
         note = Instantiate(notePrefab);
         baseNote = note.GetComponent<BaseNote>();
         key.SetBaseNote(GenerateKey(), baseNote);
+
+        Debug.Log("KeyCode is: " + riddleKey.text);
+
+        SetKey();
     }
 
     private void GenerateNote(GameObject riddle)
@@ -79,9 +91,15 @@ public class RiddleSpawner : MonoBehaviour
         key.SetBaseNote(GenerateKey(), baseNote);
     }
 
+    private void SetKey()
+    {
+        gameController.PinPadController.SetCode(riddleKey.text);
+    }
+
     private int GenerateKey()
     {
         int key = Random.Range(1, 9);
+        riddleKey.text += key.ToString();
         keys[i] = key;
         i++;
         return key;

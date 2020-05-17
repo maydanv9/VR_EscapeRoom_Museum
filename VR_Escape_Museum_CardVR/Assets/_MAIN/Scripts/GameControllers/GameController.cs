@@ -34,6 +34,12 @@ public class GameController : MonoBehaviour
     [SerializeField] private MachineController machineController;
     public MachineController MachineController => machineController;
 
+    [SerializeField] private PinPadController pinPadController;
+    public PinPadController PinPadController => pinPadController;
+
+    [SerializeField] private AlarmController alarmController;
+    public AlarmController AlarmController => alarmController;
+
     private void Awake()
     {
         Initialization();

@@ -9,6 +9,7 @@ public class EventsController : MonoBehaviour
     public PickupEvent OnObjectCollectedEvent;
     public NotificationEvent OnNotificationShowEvent;
     public UnityEvent OnBuyItemEvent;
+    public UnityEvent AlarmEvent;
     public List<UnityEvent> unityEvents = new List<UnityEvent>();
     public void Init(GameController gameController)
     {
@@ -16,6 +17,7 @@ public class EventsController : MonoBehaviour
         OnObjectCollectedEvent.AddListener(OnObjectPickedUp);
         OnNotificationShowEvent.AddListener(OnNotificationShow);
         OnBuyItemEvent.AddListener(delegate { OnBuyItem(); });
+        AlarmEvent.AddListener(delegate { OnAlarmEvent(); });
     }
     public void OnObjectPickedUp(BasePickupable pickedObject)
     {
@@ -39,5 +41,10 @@ public class EventsController : MonoBehaviour
                 return;
             }
         }
+    }
+
+    public void OnAlarmEvent()
+    {
+        gameController.AlarmController.OnAlarmEnabled();
     }
 }

@@ -15,7 +15,7 @@ public class GameState : BaseState, IGameView, IMovement {
         #endregion 
         this.gameController.UIController.GameView.ShowView();
         this.gameController.SceneReferences.GameTerrain.SetActive(true);
-        this.gameController.RiddleSpawner.GenerateRiddles();
+        this.gameController.RiddleSpawner.Init(gameController);
         this.gameController.MovementController.Init(gameController);
         this.gameController.ExamineSystem.Init(gameController);
         this.gameController.GroundController.Init(gameController);

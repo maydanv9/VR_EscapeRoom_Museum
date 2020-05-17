@@ -143,6 +143,7 @@ public class MovementController : MonoBehaviour
                     break;
                 case objects.interactable:
                     currentfocusedObject.OnInterract();
+                    gameController.EventsController.AlarmEvent.Invoke();
                     entered = false;
                     break;
                 case objects.empty:

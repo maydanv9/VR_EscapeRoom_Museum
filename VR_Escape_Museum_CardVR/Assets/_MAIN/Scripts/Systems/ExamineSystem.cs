@@ -45,7 +45,7 @@ public class ExamineSystem : MonoBehaviour
         clickedObject.tag = Keys.Tags.DEFAULT_TAG;
         clickedObject.transform.localPosition = new Vector3(0, 1, -3.5f);
         clickedObjectBasicRotation = clickedObject.transform.localEulerAngles;
-        ResetScale();
+        //ResetScale();
         ResetRotation();
     }
 
