@@ -11,9 +11,9 @@ public class BaseNote : MonoBehaviour
     private int keyValue;
     public int KeyValue => keyValue;
 
-    public void SetKeyValue(int _keyValue)
+    public void SetKeyValue(int _keyValue, int number)
     {
         keyValue = _keyValue;
-        text.text = _keyValue.ToString();
+        text.text = number.ToString() + " - " + _keyValue.ToString();
     }
 }

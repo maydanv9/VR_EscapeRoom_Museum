@@ -33,6 +33,11 @@ public class MenuView : BaseView {
         finishPanel.SetActive(true);
         menu.SetActive(true);
         game.SetActive(false);
-        duration.text = gameTime.ToString();
+        int minutes = 0, seconds = 0;
+
+        minutes = ((int)gameTime / 60);
+        seconds = ((int)gameTime % 60);
+
+        duration.text = minutes.ToString() + " min " + seconds.ToString() + " s";
     }
 }

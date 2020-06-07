@@ -27,8 +27,8 @@ public class RiddleSpawner : MonoBehaviour
 
     public void GenerateRiddles()
     {
-        i = 0;
-        keys = new int[4];
+        i = 1;
+        keys = new int[5];
         //GENERATE PAINTING
         var randomNumber = Random.Range(0, paintingRiddles.Count);
         var randomRiddleNumber = Random.Range(0, riddleTransforms.Count);
@@ -50,7 +50,7 @@ public class RiddleSpawner : MonoBehaviour
         BaseRiddle key = riddle.GetComponent<BaseRiddle>();
         GameObject note = Instantiate(notePrefab);
         BaseNote baseNote = note.GetComponent<BaseNote>();
-        key.SetBaseNote(GenerateKey(), baseNote);
+        key.SetBaseNote(GenerateKey(), baseNote, i);
         riddle.transform.position = riddleTransforms[randomRiddleNumber].position;
         riddle.transform.rotation = riddleTransforms[randomRiddleNumber].rotation;
         riddleTransforms.RemoveAt(randomRiddleNumber);
@@ -61,7 +61,7 @@ public class RiddleSpawner : MonoBehaviour
         key = riddle.GetComponentInChildren<BaseRiddle>();
         note = Instantiate(notePrefab);
         baseNote = note.GetComponent<BaseNote>();
-        key.SetBaseNote(GenerateKey(), baseNote);
+        key.SetBaseNote(GenerateKey(), baseNote, i);
         riddle.transform.position = riddleTransforms[randomRiddleNumber].position;
         riddle.transform.rotation = riddleTransforms[randomRiddleNumber].rotation;
         riddleTransforms.RemoveAt(randomRiddleNumber);
@@ -71,12 +71,12 @@ public class RiddleSpawner : MonoBehaviour
         key = binRiddle.GetComponent<BaseRiddle>();
         note = Instantiate(notePrefab);
         baseNote = note.GetComponent<BaseNote>();
-        key.SetBaseNote(GenerateKey(), baseNote);
+        key.SetBaseNote(GenerateKey(), baseNote, i);
         //MACHINE
         key = machine.GetComponent<BaseRiddle>();
         note = Instantiate(notePrefab);
         baseNote = note.GetComponent<BaseNote>();
-        key.SetBaseNote(GenerateKey(), baseNote);
+        key.SetBaseNote(GenerateKey(), baseNote, i);
 
         Debug.Log("KeyCode is: " + riddleKey.text);
 
@@ -88,7 +88,7 @@ public class RiddleSpawner : MonoBehaviour
         BaseRiddle key = riddle.GetComponent<BaseRiddle>();
         GameObject note = Instantiate(notePrefab);
         BaseNote baseNote = note.GetComponent<BaseNote>();
-        key.SetBaseNote(GenerateKey(), baseNote);
+        key.SetBaseNote(GenerateKey(), baseNote, i);
     }
 
     private void SetKey()

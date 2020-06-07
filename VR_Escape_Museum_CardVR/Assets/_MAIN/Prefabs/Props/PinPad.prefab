@@ -1729,6 +1729,7 @@ MonoBehaviour:
   codeValue: {fileID: 2245517781283160594}
   openSound: {fileID: 8667404966219833388}
   errorSound: {fileID: 4034285118615552099}
+  animator: {fileID: 0}
 --- !u!82 &8667404966219833388
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1740,8 +1741,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f3ca9cd2250426f4d9b77748acb90e92, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1836,7 +1837,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: bf820f91190585b4e8da2ed1371aa76f, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

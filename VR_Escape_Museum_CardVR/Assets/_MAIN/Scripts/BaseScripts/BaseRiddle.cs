@@ -7,10 +7,10 @@ public class BaseRiddle : BaseRaycastableItem
     [Header("BaseRiddle : Components")]
     [ReadOnly] [SerializeField] private BaseNote baseNote;
 
-    public void SetBaseNote(int key, BaseNote note)
+    public void SetBaseNote(int key, BaseNote note, int number)
     {
         baseNote = note;
-        baseNote.SetKeyValue(key);
+        baseNote.SetKeyValue(key, number);
         SetNotePosition();
     }
     private void SetNotePosition()
