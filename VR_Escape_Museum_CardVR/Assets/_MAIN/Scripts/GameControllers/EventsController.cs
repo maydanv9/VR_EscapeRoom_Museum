@@ -10,7 +10,10 @@ public class EventsController : MonoBehaviour
     public NotificationEvent OnNotificationShowEvent;
     public UnityEvent OnBuyItemEvent;
     public UnityEvent AlarmEvent;
+    public UnityEvent FinishEvent;
     public List<UnityEvent> unityEvents = new List<UnityEvent>();
+    [SerializeField] protected AudioSource basePickupableSound;
+
     public void Init(GameController gameController)
     {
         this.gameController = gameController;
@@ -18,10 +21,12 @@ public class EventsController : MonoBehaviour
         OnNotificationShowEvent.AddListener(OnNotificationShow);
         OnBuyItemEvent.AddListener(delegate { OnBuyItem(); });
         AlarmEvent.AddListener(delegate { OnAlarmEvent(); });
+        FinishEvent.AddListener(delegate { OnFinishEvent(); });
     }
     public void OnObjectPickedUp(BasePickupable pickedObject)
     {
         gameController.DataController.RegisterObject(pickedObject);
+        basePickupableSound.Play();
         pickedObject.gameObject.SetActive(false);
         OnNotificationShowEvent.Invoke(pickedObject);
     }
@@ -46,5 +51,11 @@ public class EventsController : MonoBehaviour
     public void OnAlarmEvent()
     {
         gameController.AlarmController.OnAlarmEnabled();
+    }
+
+    public void OnFinishEvent()
+    {
+        gameController.UIController.GameView.SetMenuState();
+        gameController.UIController.MenuView.SetMenuState(gameController.TimeController.GetTime());
     }
 }

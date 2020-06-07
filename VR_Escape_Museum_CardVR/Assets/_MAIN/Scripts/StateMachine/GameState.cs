@@ -21,6 +21,9 @@ public class GameState : BaseState, IGameView, IMovement {
         this.gameController.GroundController.Init(gameController);
         this.gameController.DataController.Init(gameController);
         this.gameController.EventsController.Init(gameController);
+        this.gameController.PinPadController.Init(gameController);
+        this.gameController.TimeController.Init(gameController);
+        this.gameController.AlarmController.Init(gameController);
     }
 
     public override void UpdateState(GameController gameController)
@@ -42,10 +45,8 @@ public class GameState : BaseState, IGameView, IMovement {
 
     public void SetMenuState()
     {
-        gameController.ChangeState(new MenuState());
-        
+        gameController.ChangeState(new MenuState());        
     }
-
     #region INTERFACES
     public void UpdateAxis(InputController.InputValues inputValues)
     {

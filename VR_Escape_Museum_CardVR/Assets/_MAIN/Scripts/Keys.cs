@@ -18,9 +18,15 @@ public class Keys : MonoBehaviour
         public static string KEY = "Key";
         public static string COIN = "Coin";
         public static string CARD = "Card";
+        public static string DOOR = "Door";
     }
     public static class Animaitons
     {
         public static string ANIMATION = "ANIMATION";
+    }
+
+    public static class Sounds
+    {
+        public static string SOUND_STEP = "Sound step";
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 public class ChestRiddle : BaseRiddle
 {
     [SerializeField] private Animator chestAnimator;
+    [SerializeField] protected AudioSource drawerSound;
+
     public override void OnRaycastEnter(GameController gameController)
     {
         base.OnRaycastEnter(gameController);

@@ -325,6 +325,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9184044970403198911}
+  - component: {fileID: 4803303635699807643}
   m_Layer: 0
   m_Name: AUTOMATIC_SLIDING_DOOR_FBX
   m_TagString: Untagged
@@ -350,6 +351,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &4803303635699807643
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5273453364482311596}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 11f48ce5109e12943a2c54dc870efa46, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5315103271557821095
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,6 +381,7 @@ GameObject:
   - component: {fileID: 6297205080412693090}
   - component: {fileID: 7748542256057619033}
   - component: {fileID: 1830401036407884522}
+  - component: {fileID: 5015821419022350584}
   m_Layer: 0
   m_Name: DoorR
   m_TagString: Untagged
@@ -431,6 +452,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &5015821419022350584
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5315103271557821095}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.79999995, y: 2.2, z: 0.06}
+  m_Center: {x: 0, y: 0, z: 0.03}
 --- !u!1 &7099188657307249319
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,6 +555,7 @@ GameObject:
   - component: {fileID: 3973119674854745583}
   - component: {fileID: 6432968487294717514}
   - component: {fileID: 1979958496597096390}
+  - component: {fileID: 322470721312032078}
   m_Layer: 0
   m_Name: DoorL
   m_TagString: Untagged
@@ -591,6 +626,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &322470721312032078
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7111818256694995079}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.79999995, y: 2.2, z: 0.06}
+  m_Center: {x: 0, y: 0, z: 0.03}
 --- !u!1 &8227561025261159058
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,9 +651,11 @@ GameObject:
   - component: {fileID: 8503972346602614603}
   - component: {fileID: 9124717108542572649}
   - component: {fileID: 6746680881802686028}
+  - component: {fileID: 3812089913184639360}
+  - component: {fileID: 4432872014421511065}
   m_Layer: 0
   m_Name: Background
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967294
@@ -682,5 +732,39 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 0.91410255}
+  m_Center: {x: 0, y: 0, z: -0.042948723}
+--- !u!114 &3812089913184639360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8227561025261159058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8b32d888cb7e8747be2c8302e77faac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outline: {fileID: 4432872014421511065}
+  spawnNoteLists: []
+  baseNote: {fileID: 0}
+  objectName: Door
+--- !u!114 &4432872014421511065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8227561025261159058}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0, g: 0, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []

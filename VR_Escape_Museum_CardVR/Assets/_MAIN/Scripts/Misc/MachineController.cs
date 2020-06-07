@@ -5,6 +5,7 @@ using UnityEngine;
 public class MachineController : BaseRiddle
 {
     [SerializeField] private GameObject card;
+    [SerializeField] protected AudioSource machineSound;
 
     private void Start()
     {
@@ -33,6 +34,7 @@ public class MachineController : BaseRiddle
         if (gameController.DataController.Coin != null)
         {
             gameController.EventsController.OnBuyItemEvent.Invoke();
+            machineSound.Play();
         }
     }
     #endregion

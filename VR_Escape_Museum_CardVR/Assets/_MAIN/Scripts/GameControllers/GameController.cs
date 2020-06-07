@@ -40,6 +40,10 @@ public class GameController : MonoBehaviour
     [SerializeField] private AlarmController alarmController;
     public AlarmController AlarmController => alarmController;
 
+    [SerializeField] private SoundController soundController;
+    public SoundController SoundController => soundController;
+    [SerializeField] private TimeController timeController;
+    public TimeController TimeController => timeController;
     private void Awake()
     {
         Initialization();

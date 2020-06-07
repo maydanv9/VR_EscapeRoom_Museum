@@ -7,6 +7,9 @@ public class AlarmController : MonoBehaviour
     private GameController gameController;
     private bool enabled = false;
     [SerializeField] private MeshRenderer alarmRenderer;
+    [SerializeField] protected AudioSource alarmSound;
+
+
     public void Init(GameController _gameController)
     {
         gameController = _gameController;
@@ -14,9 +17,16 @@ public class AlarmController : MonoBehaviour
 
     public void OnAlarmEnabled()
     {
+        gameController.TimeController.StartTimer();
         if (enabled) return;
         enabled = true;
+        alarmSound.Play();
         StartCoroutine(AlarmCoroutine());
+    }
+
+    public void CancelAlarm()
+    {
+        enabled = false;
     }
 
     private IEnumerator AlarmCoroutine()

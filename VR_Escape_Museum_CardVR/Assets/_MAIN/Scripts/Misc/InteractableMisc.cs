@@ -5,6 +5,8 @@ using UnityEngine;
 public class InteractableMisc : BaseRaycastableItem
 {
     [SerializeField] private Animator animator;
+    [SerializeField] protected AudioSource drawerSound;
+
     public override void OnRaycastEnter(GameController gameController)
     {
         base.OnRaycastEnter(gameController);
@@ -24,5 +26,6 @@ public class InteractableMisc : BaseRaycastableItem
     {
         base.OnInterract();
         animator.SetTrigger(Keys.Animaitons.ANIMATION);
+        drawerSound.Play();
     }
 }

@@ -9,10 +9,20 @@ public class PinPadController : MonoBehaviour
 {
     [SerializeField] private string codeString; 
     [SerializeField] private TMP_Text codeValue;
+    [SerializeField] private AudioSource openSound;
+    [SerializeField] private AudioSource errorSound;
+    [SerializeField] private Animator animator;
+    private GameController gameController;
     string word = null;
     int wordIndex = -1;
     char[] nameChar = new char[5];
     string alpha = null;
+
+    public void Init(GameController gameController)
+    {
+        this.gameController = gameController;
+    }
+
     //Metoda wywoływana na przycisku 1,2,3 itd...
     public void OnButtonPressedCall(string _value)
     {
@@ -28,8 +38,13 @@ public class PinPadController : MonoBehaviour
 
             if (codeValue.text.Equals(codeString))
             {
-                //TO DO: Open doors
-                Debug.Log("Open doors");
+                gameController.AlarmController.CancelAlarm();
+                openSound.Play();
+                animator.SetTrigger(Keys.Animaitons.ANIMATION);
+            }
+            else if (!codeValue.text.Equals(codeString) && codeValue.text.Length > 3)
+            {
+                errorSound.Play();
             }
         }
     }

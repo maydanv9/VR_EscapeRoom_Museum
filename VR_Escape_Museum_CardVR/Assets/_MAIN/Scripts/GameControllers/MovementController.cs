@@ -17,6 +17,7 @@ public class MovementController : MonoBehaviour
     //[SerializeField] private GameObject initGameCursor;
     [SerializeField] private GameObject teleportPrefab;
     [SerializeField] private float rayLenght = 3f;
+    [SerializeField] private AudioSource stepSound;
 
     private InputController.InputValues inputValues;
     private bool entered = false;
@@ -140,6 +141,7 @@ public class MovementController : MonoBehaviour
             {
                 case objects.ground:
                     gameController.GroundController.TeleportPlayer(teleportPrefab.transform.position);
+                    stepSound.Play();
                     break;
                 case objects.interactable:
                     currentfocusedObject.OnInterract();

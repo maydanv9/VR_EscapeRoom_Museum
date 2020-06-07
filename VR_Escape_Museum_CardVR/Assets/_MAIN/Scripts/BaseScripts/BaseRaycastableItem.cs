@@ -11,6 +11,11 @@ public class BaseRaycastableItem : MonoBehaviour
     public List<Transform> SpawnNoteLists => spawnNoteLists;
     protected GameController gameController;
 
+    private void Start()
+    {
+        if (outline != null) outline.enabled = false;
+    }
+
     public virtual void OnRaycastEnter(GameController gameController)
     {
         if(outline != null) outline.enabled = true;
